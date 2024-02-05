@@ -1,0 +1,25 @@
+.cbg1b {
+  font-size: larger;
+  font-weight: 400;
+  color: rgb(7, 7, 7);
+  background-color: #fedd6e;
+  border: none;
+  border-radius: 50px;
+  padding: 0 26px;
+  height: 10vh;
+  width: 20vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 0 0.05px rgb(249, 237, 169),
+    0.3em 0.3em 1em rgba(255, 210, 126, 0.6);
+}
+.cbg1b:hover {
+  cursor: pointer;
+  box-shadow: 0.3em 0.3em 2em rgba(252, 249, 202, 0.6);
+  scale: 1.01;
+  color: black;
+}
+.arrow_img {
+  padding: 5px 10px;
+}

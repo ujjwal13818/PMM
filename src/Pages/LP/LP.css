@@ -1,0 +1,127 @@
+.llgetstarted {
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  color: white;
+}
+.llgetstarted::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 103%;
+  background: url('/dark-1.avif') no-repeat center center/cover;
+  z-index: -1;
+  opacity: .85;
+}
+.llgetstartedsign_in{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  transform: translateY(-160%); 
+  transition: all .6s ease-out;
+}
+.llgetstartedsign_up{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform: translateY(-160%);
+  transition: all .6s ease-out;
+}
+.plpshow{
+  transform: translateY(0%);
+}
+.llgetstartednav{
+  position: absolute;
+  top: 2vh;
+  right: 0;
+  width: 260px;
+  padding: 10px 10px 20px 35px;
+  background-color: rgb(1, 1, 1);
+  outline: none;
+  height: 46px;
+  border-top-left-radius: 40%;
+  border-bottom-left-radius: 40%;
+  position: fixed;
+}
+.llgetstartednavlogin{
+  margin-right: 15px;
+  cursor: pointer;
+}
+.llgetstartednavlogin:hover{
+  color: rgb(43, 219, 43);
+}
+.llgetstartednavsignup{
+  margin-right: 15px;
+  cursor: pointer;
+}
+.llgetstartednavsignup:hover{
+  color: rgb(43, 219, 43);
+}
+.plpmain{
+  height: 40%;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color:inherit;
+  flex-direction: column;
+  margin-left: 20%;
+  margin-top: 8%;
+}
+.plphidden{
+  display: none;
+}
+.plpmaintitle{
+ font-size: 35px;
+ margin: 3vh;
+}
+.lptypewriter{
+  color: red;
+  font-size: 38px;
+  font-weight: bold;
+  
+}
+.plpmainsubtitle{
+  margin-bottom: 3vh;
+  font-size: 25px;
+}
+.llgetstartedlogo{
+  height: 80px;
+  width: 178px;
+  background: url('/whiteLogo.png') no-repeat center center/cover;
+  margin-left: 2vw;
+  margin-top: 3vh;
+  aspect-ratio: 3/2;
+  object-fit: contain;
+  mix-blend-mode: color-burn;
+  z-index: 2;
+}
+.llgetstartednavabout{
+  cursor: pointer;
+}
+.llgetstartednavabout:hover{
+  color: rgb(43, 219, 43);
+}
+.llabout {
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+}
+.llaboutapp{
+    width: 100%;
+    height: 70%;
+    background-color: white;
+}
+.llaboutvisit{
+    width: 100%;
+    height: 30%;
+    background-color: grey;
+}

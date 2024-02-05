@@ -1,0 +1,121 @@
+.cfsumain{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 60vw;
+    height: 75vh;
+    background-color: black;
+}
+.cfsuleft{
+    background: url('/helping.jpg')  no-repeat center/cover;
+    color: black;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    flex-direction: column;
+    opacity: .6;
+}
+.cfsuright{
+    width: 60%;
+    height: 100%;
+    background-color: white;
+}
+.sign_up_head{
+    display: flex;
+    justify-content: center;
+    color: black;
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+    align-items: center;
+}
+.cfsuclose{
+    position: absolute;
+    left : 77.5vw;
+    top: 14vh;
+    :hover{
+        cursor: pointer;
+    }
+}
+.sign_up_form{
+    display: flex;
+    height: 80%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: -4vh;  
+    margin-top: -2vh;
+}
+.inlbsu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.1vh;
+    width: 90%;
+}
+.sign_up_form input{
+   padding: 8px 5px;
+   letter-spacing: .5px;
+   border-color: rgb(235, 205, 124);
+   border-width: .15rem;
+   border-radius: 10px;
+   margin: 1vh;
+   width: 100%;
+   font-size: .8rem;
+   font-weight: 600;
+}
+.sign_up_form label{
+    font-weight: 450;
+    color: rgb(117, 113, 149);
+    pointer-events: none;
+    transition: 0.3s ease-out; 
+    position: absolute;
+}
+.sign_up_form input:focus ~label, .sign_up_form input:not(:placeholder-shown) ~label{
+    margin-top: -8vh;
+    color: black;
+}
+.sign_up_form input:focus {
+    outline: none;
+    border-color: rgb(70, 130, 180);
+}
+.push{
+   padding-left: 16vw;
+   font-size: 3.5vw;
+   transform: scale(1,.5);
+   line-height: 0vh;
+   font-family: 'Quintessential', serif;
+   font-style: oblique;
+   color: rgb(255, 1, 1);
+   font-weight: 600;
+   letter-spacing: .2vw;
+   opacity: 2;
+}
+.my{
+    padding-left: 25vw;
+   transform: scale(1,.6);
+   font-size: 4vw;
+   font-weight: 500;
+   margin-top: -1vh;
+   opacity: 2;
+   margin-bottom: -.8vh;
+}
+.motive{
+   font-size: 3.5vw;
+   transform: scale(1,.5);
+   opacity: 2;
+    padding-left: 16vw;
+   line-height: 0vh;
+   font-family: 'Segoe UI','Lucida Sans Unicode', Geneva,  Tahoma, Geneva, Verdana, sans-serif;
+   font-weight: 550;
+   font-style: italic;
+    margin-bottom: 14vh;
+   color: rgb(202, 98, 23);
+}
+.sub_btn{
+    display: flex;
+    justify-content: center;
+}

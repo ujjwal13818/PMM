@@ -1,0 +1,25 @@
+.cbsib {
+  font-size: larger;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+  background-color: #e7821e;
+  border: none;
+  border-radius: 3px;
+  padding: 0 16px;
+  height: 36px;
+  width: 20vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cbsib:hover {
+  cursor: pointer;
+  box-shadow:
+    0.3em 0.3em 1em rgba(207, 240, 19, 0.6);
+    scale: 1.01;
+    background-color: rgb(142, 246, 58);
+    color: black;
+}
+img{
+    padding: 5px 10px;
+}

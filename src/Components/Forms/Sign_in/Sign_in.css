@@ -1,0 +1,72 @@
+.cfsi{
+    height: 50vh;
+    width: 30vw;
+    position: absolute;
+    top: 28%;
+    left: 36%;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+}
+.siheading{
+    margin-top: 1vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cfsiclose{
+    position: absolute;
+    left: 28vw;
+    top: 1.5vh;
+}
+.cfsiclose:hover{
+    cursor: pointer;
+}
+.cfsimain{
+    width: 100%;
+    height: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10vh;
+    margin-top: -5vh;
+}
+.siinlb{
+    display: flex;
+    flex-direction: column;
+    padding: 4vh 2vh;
+}
+.cfsi input{
+    padding: 5px 10px;
+    letter-spacing: 1.3px;
+   width: 80%;
+   font-size: .8rem;
+   font-weight: 600;
+   background-color: transparent;
+   border: none;
+   border-bottom: 2px solid rgb(198, 193, 65);
+   color: white;
+   outline: none;
+   margin: 1vh 1vw;
+   z-index: 2;
+
+}
+.cfsi label{
+    margin-left: 1.5vw;
+    transition: 0.3s ease-out; 
+    margin-top: -5vh;
+}
+.cfsi input:focus ~label, .cfsi input:not(:placeholder-shown) ~label{
+    margin-top: -8vh;
+    color: rgb(199, 232, 156);
+}
+
+.subsi{
+    position: absolute;
+    top: 65%;
+    left: 40%;
+}

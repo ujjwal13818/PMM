@@ -1,0 +1,29 @@
+.cbg3b{
+    width: 20vw;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0;
+    margin-bottom: 2vh;;
+    border: none;
+}
+.icon{
+    width: 3vw;
+    height: 30px;
+}
+.textg3b{
+    width: 18vw;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: .9rem;
+    font-weight: 500;
+    background-color: #3f1eff;
+    padding-left: 20px;
+}
+.cbg3b:hover{
+    cursor: pointer;
+    scale: 1.02;
+}

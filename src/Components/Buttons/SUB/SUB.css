@@ -1,0 +1,18 @@
+.cbsub {
+  font-size: larger;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+  background-color: #2c55BD;
+  border: none;
+  border-radius: 3px;
+  padding: 0 16px;
+  height: 36px;
+  width: 20vw;
+}
+.cbsub:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgb(186, 232, 235),
+    0.3em 0.3em 1em rgba(19, 174, 240, 0.6);
+    scale: 1.01;
+    background-color: rgb(38, 169, 38);
+}
