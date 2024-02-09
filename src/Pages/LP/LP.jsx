@@ -4,11 +4,13 @@ import Sign_up from "../../Components/Forms/Sign_up/Sign_up";
 import Sign_in from "../../Components/Forms/Sign_in/Sign_in";
 import G1B from "../../Components/Buttons/G1B/G1B";
 import { Typewriter } from "react-simple-typewriter";
+import { useSiso } from "../../Context/siso";
+
 
 const LP = () => {
+  const siso = useSiso();
   const aboutRef = useRef();
   const getstartedRef = useRef();
-
   const handleRefClicks = (ref) => {
     window.scrollTo({ top: ref.current.offsetTop, behavior: "smooth" });
   };

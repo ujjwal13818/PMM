@@ -1,0 +1,112 @@
+.upmain:hover {
+  transform: scale(1.02);
+}
+.upc {
+  width: 45vw;
+  height: 25vh;
+  background-color: rgb(243, 243, 243);
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+.upctop {
+  width: 26vw;
+  height: 10vh;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.upctopprofilepic {
+  width: 4vw;
+  height: 4vw;
+  background-color: white;
+  border-radius: 50%;
+}
+.upctopnameandsubtitle {
+  width: 20vw;
+  height: 4vw;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+}
+.upctopname {
+  font-size: larger;
+}
+.upctopsubtitle {
+  font-size: 1rem;
+}
+.upcbottom {
+  color: black;
+  padding: 5px 12px;
+}
+.uppushcomment {
+  width: 45vw;
+  height: 7vh;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+.uppush {
+  width: 22.3vw;
+  height: 5vh;
+  background-color: rgb(206, 206, 206);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.5rem;
+  align-items: center;
+}
+.upicon {
+  color: rgb(0, 0, 0);
+  margin-right: 10px;
+}
+.upicon:hover {
+  color: red;
+}
+.uppushtext {
+  color: rgb(51, 48, 48);
+  cursor: default;
+  font-size: 1.3rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 540;
+}
+.uppushtext:hover {
+  color: green;
+}
+.uppush:hover {
+  border-right: 3px solid white;
+  cursor: pointer;
+}
+.upcomment {
+  width: 22.3vw;
+  height: 5vh;
+  background-color: rgb(206, 206, 206);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.upcomment:hover {
+  border-left: 3px solid white;
+  cursor: pointer;
+}
+.upcommenticon {
+    margin-right: 10px;
+}
+.upcommenttext {
+    font-size: 1.3rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 540;
+}
+.upcommenttext:hover{
+    color: rgb(12, 41, 184);
+}
+.commenticon{
+    color: black;
+}

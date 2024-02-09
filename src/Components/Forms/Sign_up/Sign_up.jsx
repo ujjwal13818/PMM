@@ -21,7 +21,7 @@ const Sign_up = ({ toggleSign_up }) => {
 
   const [error, setError] = useState("");
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async(e) => {
     e.preventDefault();
     if(userData.password.length < 6){
       setError("Password should be at least six characters long buddy.");
@@ -30,15 +30,15 @@ const Sign_up = ({ toggleSign_up }) => {
     if (confirmPassword != userData.password)
     setError("Password did not match");
     else setError("");
-    siso.sign_up_user(userData.email,userData.password);
-    siso.add_user(userData);
-    setUserData({
-      ...userData,
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    });
+    await siso.getData(userData);
+    console.log(siso.verifiedUser);
+      setUserData({
+        ...userData,
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+      });
     setConfirmPassword("");
   };
 
@@ -146,9 +146,6 @@ const Sign_up = ({ toggleSign_up }) => {
                 style={{ color: "red", fontSize: "13px", marginBottom: "1vh" }}
               >
                 {error}
-              </div>
-              <div className="sign_up_google">
-                <G3B />
               </div>
               <div className="sub_btn">
                 <button className="cbsub" type="submit">

@@ -1,0 +1,28 @@
+.uc{
+    width: 16vw;
+    height: 16vh;
+    background-color: inherit;
+    color: blcak;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: none;
+}
+.uc:hover{
+    border-bottom: 2px solid white;
+    border-top: 2px solid white;
+    cursor: pointer;
+}
+.ucprofilepic{
+    width: 4.5vw;
+    height: 4.5vw;
+    background-color: white;
+    border-radius: 50%;
+}
+.ucprofilename{
+    width: 10vw;
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+    align-items: center;
+}

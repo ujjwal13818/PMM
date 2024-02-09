@@ -1,0 +1,160 @@
+
+.phnv {
+  z-index: 2;
+  position: fixed;
+  right: 0;
+  width: 50px;
+  height: 350px;
+  background-color: rgba(0, 0, 0, 0.205);
+  top: 27%;
+  text-align: center;
+  padding-top: 2%;
+}
+.phnvicon {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(163, 125, 125);
+  margin-left: 10%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  background-color: black;
+}
+.phnvicon:hover {
+  cursor: pointer;
+  background-color: rgb(238, 250, 5);
+  color: black;
+}
+.active {
+  background-color: red;
+  animation: spin 0.5s;
+}
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+.active:hover {
+  background-color: red;
+  color: white;
+}
+.phlogo,
+.phimg {
+  width: 100px;
+  height: 80px;
+  position: fixed;
+  top: 10px;
+  left: 5px;
+  z-index: 2;
+}
+.phlogo{
+    width: 20vw;
+    background-color: rgb(243, 243, 243);
+    margin-left: -1vh;
+    top: 0;
+    position: fixed;
+}
+.phmc {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 410;
+}
+.phmc1 {
+  width: 20vw;
+  background-color: rgba(197, 197, 192, 0.146);
+  overflow-y: auto;
+  font-size: larger;
+  scrollbar-width: none;
+  padding: 90px 2vh 2vh 3vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.phmc1peers {
+  width: 20vw;
+  background-color: rgb(243, 243, 243);
+  z-index: 4;
+  position: fixed;
+  font-size: 2rem;
+  text-align: left;
+  color: rgba(141, 41, 41, 0.913);
+  margin-left: -3vh;
+  margin-top: -1.4vh;
+  height: 7vh;
+}
+.phpeerslist{
+    width: 20vw;
+    margin-top: 3vh
+}
+.phmc2 {
+  width: 65vw;
+  background-color: rgb(255, 255, 255);
+  overflow-y: auto;
+  font-size: larger;
+  scrollbar-width: none;
+  padding: 10px 5vh 0vh 5vh;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.phmc3 {
+  width: 15vw;
+  background-color: rgb(243, 243, 243);
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 10px 2vh 0vh 2vh;
+  text-align: justify;
+}
+.phprofile {
+  width: 12vw;
+  height: 25vh;
+  margin-top: 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.phprofilepic {
+  width: 8vw;
+  height: 8vw;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+}
+.pheditbutton {
+  width: 11vw;
+  height: 5vh;
+  margin-top: 1vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pheditbtn {
+  padding: 2px 5px 2px 5px;
+  border-left-style: groove;
+  border-radius: 100px;
+  width: 10.5vw;
+  font-weight: 500;
+  font-size: 1.2rem;
+  font-family: "Space-Grotesk" sans-serif;
+  background-color: rgba(216, 216, 216, 0.575);
+}
+.pheditbtn:hover {
+  background-color: rgb(234, 235, 183);
+  cursor: pointer;
+  color: rgba(0, 0, 0);
+  transform: scale(1.05);
+}
+
