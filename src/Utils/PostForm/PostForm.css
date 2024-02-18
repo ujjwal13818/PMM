@@ -1,0 +1,85 @@
+.pfmain {
+  width: 50vw;
+  height: 45vh;
+  background: black;
+  border-width: 3px;
+  border-style: solid;
+  border-image: linear-gradient(135deg, #FFD700, #FF6347) 1;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.pfXmark:hover{
+  cursor: pointer;
+}
+.pfheading{
+  height: 8vh;
+}
+textarea{
+  width: 40vw;
+  height: 20vh;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  font-family: space-grotesk;
+  padding: 5px;
+  outline: none;
+  cursor: auto;
+}
+.pfaddimgandaddmotive{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  height: 10vh;
+}
+.pfaddimg {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #3498db;
+  border: 2px solid #2980b9;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  width: 15vw;
+}
+.pfaddimg:hover,
+.pfaddimg:focus {
+  background-color: #2980b9;
+  border-color: #3498db;
+  cursor: pointer;
+}
+.pfaddimg:active {
+  background-color: #2c3e50;
+  border-color: #2c3e50;
+}
+.addmotivebtn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  background-color: #e74c3c;
+  border: 2px solid #c0392b;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.addmotivebtn:hover,
+.addmotivebtn:focus {
+  background-color: #c0392b;
+  border-color: #e74c3c;
+}
+
+.addmotivebtn:active {
+  background-color: #922b21;
+  border-color: #922b21;
+}

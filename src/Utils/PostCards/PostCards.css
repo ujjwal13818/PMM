@@ -1,10 +1,10 @@
 .upmain:hover {
-  transform: scale(1.02);
+  scale: 1.005;
+  transition: 0.3s;
 }
 .upc {
   width: 45vw;
   height: 25vh;
-  background-color: rgb(243, 243, 243);
   display: flex;
   flex-direction: column;
   margin-top: 40px;
@@ -26,7 +26,6 @@
 .upctopnameandsubtitle {
   width: 20vw;
   height: 4vw;
-  background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,9 +33,11 @@
 }
 .upctopname {
   font-size: larger;
+  color: rgb(61, 75, 119);
 }
 .upctopsubtitle {
   font-size: 1rem;
+  color: rgb(255, 255, 255);
 }
 .upcbottom {
   color: black;
@@ -45,7 +46,6 @@
 .uppushcomment {
   width: 45vw;
   height: 7vh;
-  background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -55,7 +55,6 @@
 .uppush {
   width: 22.3vw;
   height: 5vh;
-  background-color: rgb(206, 206, 206);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -63,50 +62,53 @@
   align-items: center;
 }
 .upicon {
-  color: rgb(0, 0, 0);
+  color: rgb(125, 111, 100);
   margin-right: 10px;
+  transition: 0.2s;
 }
 .upicon:hover {
-  color: red;
+  color: rgb(255, 0, 0);
 }
 .uppushtext {
   color: rgb(51, 48, 48);
   cursor: default;
   font-size: 1.3rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 540;
 }
 .uppushtext:hover {
   color: green;
+  cursor: pointer;
 }
 .uppush:hover {
-  border-right: 3px solid white;
   cursor: pointer;
+  font-weight: 600;
 }
 .upcomment {
   width: 22.3vw;
   height: 5vh;
-  background-color: rgb(206, 206, 206);
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 .upcomment:hover {
-  border-left: 3px solid white;
   cursor: pointer;
 }
 .upcommenticon {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 .upcommenttext {
-    font-size: 1.3rem;
-  font-family: 'Roboto', sans-serif;
+  font-size: 1.3rem;
+  font-family: "Roboto", sans-serif;
   font-weight: 540;
 }
-.upcommenttext:hover{
-    color: rgb(12, 41, 184);
+.upcommenttext:hover {
+  color: rgb(12, 41, 184);
 }
-.commenticon{
-    color: black;
+.commenticon {
+  color: black;
+}
+.liked{
+  color: red;
 }

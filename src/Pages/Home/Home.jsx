@@ -11,9 +11,12 @@ import {
   faEnvelope,
   faUser,
   faArrowRightFromBracket,
+  faPencil
 } from "@fortawesome/free-solid-svg-icons";
 import Fcards from "../../Utils/Fcards/Fcards";
 import PostCards from "../../Utils/PostCards/PostCards";
+import MakeAPost from "../../Utils/MakeAPost/MakeAPost";
+import PostForm from "../../Utils/PostForm/PostForm";
 
 const Home = () => {
   const { id } = useParams();
@@ -22,6 +25,7 @@ const Home = () => {
   const [isHome, setHome] = useState(true);
   const [isPost, setPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
+  const [posting , setPosting] = useState(false);
   const [isNotification, setNotification] = useState(false);
   const [isProfile, setProfile] = useState(false);
   const setIconFalse = () => {
@@ -36,10 +40,18 @@ const Home = () => {
     siso.sign_out();
     navigate("/");
   };
-
+  const bgcs = [
+    "linear-gradient(135deg, #F8B500, #FFFFFF)",
+    "linear-gradient(135deg, #2193b0, #6dd5ed)",
+    "linear-gradient(135deg, #A8E063, #56AB2F)",
+  ];
+  const bgheader = ["#F8B500", "#2193b0", "#56AB2F"];
+  const togglePostForm = () => {
+    setPosting((posting) => !posting)
+  }
   return (
     <>
-      <div className="phmc">
+      <div className={`phmc ${posting ? "phmc disable" : ""}`}>
         <div className="phnv">
           <div
             className={`${isHome ? "phnvicon active" : "phnvicon"}`}
@@ -96,7 +108,7 @@ const Home = () => {
           </div>
         </div>
         <div className="phlogo">
-          <img src="/whiteLogo.png" alt="" srcset="" className="phimg" />
+          <img src="/whiteLogo.png" alt="" srcSet="" className="phimg" />
         </div>
         <div className="phmc1">
           <div className="phmc1peers">Your peers</div>
@@ -107,11 +119,14 @@ const Home = () => {
           </div>
         </div>
         <div className="phmc2">
-          {
-            [...Array(15)].map((_,index) => (
-              <PostCards key={index} />
-            ))
-          }
+          {[...siso.allFriendsPosts].map((post, index) => (
+            <PostCards
+              key={index}
+              bgcs={bgcs[index % bgcs.length]}
+              bgheader={bgheader[index % bgheader.length]}
+              post={post}
+            />
+          ))}
         </div>
         <div className="phmc3">
           <div className="phprofile">
@@ -123,6 +138,12 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="phmap" onClick={togglePostForm}>
+        <MakeAPost />
+      </div>
+      <div className={`phposting ${posting ? "phposting active2" : ""}`}>
+        <PostForm togglePostForm={togglePostForm} />
       </div>
     </>
   );

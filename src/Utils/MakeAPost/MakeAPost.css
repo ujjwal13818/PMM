@@ -1,0 +1,31 @@
+.umap{
+    color: rgb(255, 255, 255);
+    z-index: 20;
+    height: 6vh;
+    width: 3vw;
+    background: linear-gradient(135deg, #f43b47, #453a94);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 50%;
+    transition: .2s ease-in-out;
+}
+.umaptext{
+    display: none;
+    padding-left: 1vw;
+    font-size: 0px;
+
+}
+.umap:hover{
+    width: 11vw;
+    border-radius: 10vh;
+    cursor: pointer;
+    padding-right: 1vw;
+    transition: .2s ease-in-out;
+    
+}
+.umap:hover > .umaptext{
+    display: block;
+    font-size: 1rem;
+}

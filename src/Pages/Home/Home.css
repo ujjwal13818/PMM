@@ -10,6 +10,9 @@
   text-align: center;
   padding-top: 2%;
 }
+.disable{
+  opacity: .5;
+}
 .phnvicon {
   width: 40px;
   height: 40px;
@@ -55,7 +58,8 @@
 }
 .phlogo{
     width: 20vw;
-    background-color: rgb(243, 243, 243);
+    /* background-color: rgb(243, 243, 243); */
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     margin-left: -1vh;
     top: 0;
     position: fixed;
@@ -69,7 +73,8 @@
 }
 .phmc1 {
   width: 20vw;
-  background-color: rgba(197, 197, 192, 0.146);
+  /* background-color: rgba(197, 197, 192, 0.146); */
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   overflow-y: auto;
   font-size: larger;
   scrollbar-width: none;
@@ -80,13 +85,12 @@
 }
 .phmc1peers {
   width: 20vw;
-  background-color: rgb(243, 243, 243);
   z-index: 4;
   position: fixed;
   font-size: 2rem;
   text-align: left;
   color: rgba(141, 41, 41, 0.913);
-  margin-left: -3vh;
+  margin-left: -1vh;
   margin-top: -1.4vh;
   height: 7vh;
 }
@@ -96,7 +100,7 @@
 }
 .phmc2 {
   width: 65vw;
-  background-color: rgb(255, 255, 255);
+   background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   overflow-y: auto;
   font-size: larger;
   scrollbar-width: none;
@@ -108,7 +112,7 @@
 }
 .phmc3 {
   width: 15vw;
-  background-color: rgb(243, 243, 243);
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   overflow-y: auto;
   scrollbar-width: none;
   padding: 10px 2vh 0vh 2vh;
@@ -149,12 +153,30 @@
   font-weight: 500;
   font-size: 1.2rem;
   font-family: "Space-Grotesk" sans-serif;
-  background-color: rgba(216, 216, 216, 0.575);
+   background: (135deg, #FFD700, #FF6347);
 }
 .pheditbtn:hover {
-  background-color: rgb(234, 235, 183);
+background: linear-gradient(135deg, #2193b0, #6dd5ed);
   cursor: pointer;
   color: rgba(0, 0, 0);
   transform: scale(1.05);
 }
+.phmap{
+  position: fixed;
+  right: 16vw;
+  top: 90vh;
+}
+.phposting{
+  position: absolute;
+  transition: .5s ease-in-out;
+  top: -150%;
+  left: 28%;
+}
+.active2{
+  position: absolute;
+  transform: translateY(0);
+  left: 28%;
+  top: 27%;
+}
+
 

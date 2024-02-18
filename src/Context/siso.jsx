@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -26,6 +20,9 @@ import {
   where,
   getDocs,
   query,
+  doc,
+  setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { Navigate, useNavigate } from "react-router-dom";
 
@@ -55,14 +52,15 @@ export const SisoProvider = (props) => {
   const [verifiedUser, setVerifiedUser] = useState(false);
   const [receivedData, setReceivedData] = useState(false);
   const [userData, setUserData] = useState(null);
-  const [loggedIn , setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [allPosts, setAllPosts] = useState([]); // all user posts.
   const navigate = useNavigate();
+  const [allFriendsPosts, setAllFriendsPosts] = useState([]); // all friends post of the user;
 
   const add_user = async ({ ...userData }) => {
     try {
-      console.log("called");
-      const userDocRef = collection(userInfodb, "users");
-      await addDoc(userDocRef, {
+      const userDocRef = doc(userInfodb, "users", userData.email);
+      await setDoc(userDocRef, {
         first_name: userData.firstName,
         last_name: userData.lastName,
         email: userData.email,
@@ -72,11 +70,12 @@ export const SisoProvider = (props) => {
     }
   };
 
+  //data is stored at firestore;
   const getData = async ({ ...data }) => {
     setUserData((userData) => (userData, data));
     await sign_up_user(data.email, data.password);
     add_user(data);
-    sign_in_user(data.email , data.password);
+    sign_in_user(data.email, data.password);
   };
   useEffect(() => {
     onAuthStateChanged(appAuth, (user) => {
@@ -146,8 +145,66 @@ export const SisoProvider = (props) => {
     signOut(appAuth).then(() => {
       setUser("");
       setUserInfo(null);
+    });
+  };
+  const postMotive = async (motive) => {
+    try {
+      const postId = Date.now().toString();
+      const userMotivesRef = doc(userInfodb, "users",user.email,"userMotives", postId);
+      await setDoc(userMotivesRef, {
+        Motive: motive,
+        Likes: 0,
+        Comments: [],
+        emailId: user.email,
+        postId: postId,
+      })
+      console.log("Success");
+    } catch (err) {
+      console.error("Error adding document: ", err);
+    }
+  };
+  useEffect(() => {
+    const getAllPosts = async () => {
+      const allPosts = await getDocs(
+        collection(userInfodb, "users", user.email, "userMotives")
+      );
+      allPosts.forEach((doc) => {
+        setAllPosts((prevPosts) => {
+          return [...prevPosts, doc.data()];
+        });
+      });
+    };
+    getAllPosts();
+  }, []);
+
+  useEffect(async () => {
+    const get_all_friends_posts = async () => {
+      const allUsers = await getDocs(collection(userInfodb, "users"));
+      allUsers.forEach(async (userDoc) => {
+        const userId = userDoc.id;
+        const thisUserMotives = await getDocs(
+          collection(userInfodb, "users", userId, "userMotives")
+        );
+        thisUserMotives.forEach((motives) => {
+          setAllFriendsPosts((prev) => {
+            return [...prev, motives.data()];
+          });
+        });
+      });
+    };
+    get_all_friends_posts();
+  }, []);
+
+  const updatePushes = async(userId,postId,flag) => {
+    const thePostRef = doc(userInfodb,"users",userId,"userMotives",postId);
+    const thePost = await getDoc(thePostRef);
+    var newLike = thePost.data().Likes;
+    if(flag) newLike = newLike+1;
+    if(!flag) newLike = newLike-1;
+    await updateDoc(thePostRef,{
+      Likes:newLike
     })
-  }
+  };
 
   return (
     <SisoContext.Provider
@@ -159,12 +216,13 @@ export const SisoProvider = (props) => {
         verifiedUser,
         loggedIn,
         sign_out,
+        postMotive,
+        allPosts,
+        allFriendsPosts,
+        updatePushes,
       }}
     >
       {props.children}
     </SisoContext.Provider>
   );
 };
-
-//ujjwal13818@gmail.com
-//ujjwal@123
