@@ -23,6 +23,7 @@ import {
   doc,
   setDoc,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { Navigate, useNavigate } from "react-router-dom";
 
@@ -56,7 +57,10 @@ export const SisoProvider = (props) => {
   const [allPosts, setAllPosts] = useState([]); // all user posts.
   const navigate = useNavigate();
   const [allFriendsPosts, setAllFriendsPosts] = useState([]); // all friends post of the user;
+  const [usersLiked, setUsersLiked] = useState([]);
+  const [refreshFeed, setRefreshFeed] = useState(false);
 
+  //adding user name and email to his database
   const add_user = async ({ ...userData }) => {
     try {
       const userDocRef = doc(userInfodb, "users", userData.email);
@@ -77,10 +81,13 @@ export const SisoProvider = (props) => {
     add_user(data);
     sign_in_user(data.email, data.password);
   };
+
+  //handling login and logout
   useEffect(() => {
     onAuthStateChanged(appAuth, (user) => {
       if (user) {
         setUser(user);
+        get_user_info(user.email);
         setLoggedIn(!loggedIn);
       } else {
         console.log("logged out");
@@ -114,7 +121,6 @@ export const SisoProvider = (props) => {
     setPersistence(appAuth, browserSessionPersistence)
       .then(() => {
         signInWithEmailAndPassword(appAuth, username, password);
-        get_user_info(username);
         navigate("/home");
       })
       .catch((err) => {
@@ -147,22 +153,34 @@ export const SisoProvider = (props) => {
       setUserInfo(null);
     });
   };
+
+  //posting
   const postMotive = async (motive) => {
     try {
       const postId = Date.now().toString();
-      const userMotivesRef = doc(userInfodb, "users",user.email,"userMotives", postId);
+      const userMotivesRef = doc(
+        userInfodb,
+        "users",
+        user.email,
+        "userMotives",
+        postId
+      );
       await setDoc(userMotivesRef, {
         Motive: motive,
         Likes: 0,
         Comments: [],
         emailId: user.email,
         postId: postId,
-      })
+        fullName: userInfo.first_name + " " + userInfo.last_name,
+        likedBy: [],
+      });
       console.log("Success");
     } catch (err) {
       console.error("Error adding document: ", err);
     }
   };
+
+  //users own posts
   useEffect(() => {
     const getAllPosts = async () => {
       const allPosts = await getDocs(
@@ -177,6 +195,7 @@ export const SisoProvider = (props) => {
     getAllPosts();
   }, []);
 
+  //all friend's posts;
   useEffect(async () => {
     const get_all_friends_posts = async () => {
       const allUsers = await getDocs(collection(userInfodb, "users"));
@@ -187,7 +206,8 @@ export const SisoProvider = (props) => {
         );
         thisUserMotives.forEach((motives) => {
           setAllFriendsPosts((prev) => {
-            return [...prev, motives.data()];
+            const allPosts = [...prev, motives.data()];
+            return allPosts.sort((a, b) => b.postId - a.postId);
           });
         });
       });
@@ -195,17 +215,42 @@ export const SisoProvider = (props) => {
     get_all_friends_posts();
   }, []);
 
-  const updatePushes = async(userId,postId,flag) => {
-    const thePostRef = doc(userInfodb,"users",userId,"userMotives",postId);
+  const likedUsers = async (userId, postId) => {
+    const thePostRef = doc(userInfodb, "users", userId, "userMotives", postId);
     const thePost = await getDoc(thePostRef);
-    var newLike = thePost.data().Likes;
-    if(flag) newLike = newLike+1;
-    if(!flag) newLike = newLike-1;
-    await updateDoc(thePostRef,{
-      Likes:newLike
-    })
+    thePost.data().likedBy.forEach(async (likedEmail, index) => {
+      const docRef = doc(userInfodb, "users", likedEmail);
+      const userData = await getDoc(docRef);
+      setUsersLiked((prev) => {
+        return [
+          ...prev,
+          userData.data().first_name + " " + userData.data().last_name,
+        ];
+      });
+    });
   };
 
+  const updatePushes = async (userId, postId, flag, likedBy) => {
+    const thePostRef = doc(userInfodb, "users", userId, "userMotives", postId);
+    const thePost = await getDoc(thePostRef);
+    var newLike = thePost.data().Likes;
+    var likedByArray = thePost.data().likedBy;
+    if (flag) {
+      newLike = newLike + 1;
+      likedByArray = [...likedByArray, likedBy];
+    }
+    if (!flag) {
+      newLike = newLike - 1;
+      likedByArray = likedByArray.filter((item) => item !== likedBy);
+    }
+    await updateDoc(thePostRef, {
+      Likes: newLike,
+      likedBy: likedByArray,
+    });
+  };
+  const clearLikedBy = () => {
+    setUsersLiked([]);
+  };
   return (
     <SisoContext.Provider
       value={{
@@ -220,6 +265,9 @@ export const SisoProvider = (props) => {
         allPosts,
         allFriendsPosts,
         updatePushes,
+        usersLiked,
+        clearLikedBy,
+        likedUsers,
       }}
     >
       {props.children}

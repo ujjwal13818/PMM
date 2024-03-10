@@ -112,3 +112,10 @@
 .liked{
   color: red;
 }
+.LikedByPrompt{
+  z-index: 5;
+  position: absolute;
+  width: 40vw;
+  display: flex;
+  justify-content: center;
+}

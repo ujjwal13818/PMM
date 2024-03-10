@@ -3,23 +3,32 @@ import './PostCards.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandPointer , faComment } from '@fortawesome/free-solid-svg-icons';
 import { useSiso } from '../../Context/siso';
+import LikePrompts from '../LikePrompts/LikePrompts';
 
 
 const PostCards = ({ bgcs , bgheader , post }) => {
 const siso = useSiso();
-const [isLiked, setIsLiked] = useState(false);
+const [isLiked, setIsLiked] = useState(post.likedBy.includes(siso.userInfo.email));
 const [noOfPushes , setNoOfPushes] = useState(post.Likes);
+const [showLikedBy , setShowLikedBy] = useState(false);
   const handleLikes = () =>{
     if(!isLiked){
       setNoOfPushes(noOfPushes + 1);
-      siso.updatePushes(post.emailId, post.postId,true);
+      siso.updatePushes(post.emailId, post.postId,true,siso.userInfo.email);
     }
     else {
       setNoOfPushes(noOfPushes - 1);
-      siso.updatePushes(post.emailId, post.postId, false);
+      siso.updatePushes(post.emailId, post.postId, false, siso.userInfo.email);
     }
     setIsLiked(!isLiked);
   }
+
+  useEffect(() => {
+    if (showLikedBy) {
+      siso.likedUsers(post.emailId, post.postId);
+    }
+    else siso.clearLikedBy();
+  },[showLikedBy]);
 
   return (
     <>
@@ -28,7 +37,7 @@ const [noOfPushes , setNoOfPushes] = useState(post.Likes);
           <div className="upctop" style={{ background: `${bgheader}` }}>
             <div className="upctopprofilepic"></div>
             <div className="upctopnameandsubtitle">
-              <div className="upctopname">Ujjwal kumar</div>
+              <div className="upctopname">{post.fullName}</div>
               <div className="upctopsubtitle">5 posts, 2 accomplishments</div>
             </div>
           </div>
@@ -37,11 +46,17 @@ const [noOfPushes , setNoOfPushes] = useState(post.Likes);
           </div>
         </div>
         <div className="uppushcomment" style={{ background: `${bgcs}` }}>
-          <div className="uppush" style={{ background: `${bgcs}` }} onClick={handleLikes}>
-            <div className={`upicon ${isLiked ? " liked" : ""}`}>
+          <div className="uppush" style={{ background: `${bgcs}` }}>
+            <div
+              className={`upicon ${isLiked ? " liked" : ""}`}
+              onClick={handleLikes}
+            >
               <FontAwesomeIcon icon={faHandPointer} />
             </div>
-            <div className="uppushtext">{noOfPushes} pushes</div>
+            <div className="uppushtext" onClick={async() => {
+              await siso.clearLikedBy();
+              setShowLikedBy(!showLikedBy); 
+            }}>{noOfPushes} pushes</div>
           </div>
           <div className="upcomment" style={{ background: `${bgcs}` }}>
             <div className="upcommenticon">
@@ -54,6 +69,7 @@ const [noOfPushes , setNoOfPushes] = useState(post.Likes);
             <div className="upcommenttext">4 comments</div>
           </div>
         </div>
+        {showLikedBy &&  <div className='LikedByPrompt'> <LikePrompts post = {post}/> </div>}
       </div>
     </>
   );

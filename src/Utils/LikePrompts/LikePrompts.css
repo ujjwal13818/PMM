@@ -1,0 +1,39 @@
+.ulpmain {
+  width: 22vw;
+  height: 40vh;
+  background: linear-gradient(to right, #4caf50, #ffffff);
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.ulpheading{
+    font-size: 1.5rem;
+    color: red;
+}
+.ulpnameandprofilepic {
+  width: 19vw;
+  height: 10vh;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  padding-left: 1vw;
+  align-items: center;
+  margin-top: 2vh;
+  font-size: large;
+}
+.ulpnameandprofilepic:hover{
+    border: 1px solid white;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+}
+.ulpprofilepic {
+  width: 6.5vh;
+  height: 6.5vh;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-right: 1vw;
+}

@@ -28,6 +28,7 @@ const Home = () => {
   const [posting , setPosting] = useState(false);
   const [isNotification, setNotification] = useState(false);
   const [isProfile, setProfile] = useState(false);
+
   const setIconFalse = () => {
     setHome(false);
     setPost(false);
@@ -123,7 +124,7 @@ const Home = () => {
             <PostCards
               key={index}
               bgcs={bgcs[index % bgcs.length]}
-              bgheader={bgheader[index % bgheader.length]}
+              bgheader={bgheader[index % bgheader.length]} 
               post={post}
             />
           ))}
