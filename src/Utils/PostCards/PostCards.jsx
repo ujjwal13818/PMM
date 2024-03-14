@@ -4,13 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandPointer , faComment } from '@fortawesome/free-solid-svg-icons';
 import { useSiso } from '../../Context/siso';
 import LikePrompts from '../LikePrompts/LikePrompts';
+import CommentsOn from "../CommentsOn/CommentsOn";
 
 
-const PostCards = ({ bgcs , bgheader , post }) => {
+const PostCards = ({ bgcs , bgheader , post  }) => {
 const siso = useSiso();
 const [isLiked, setIsLiked] = useState(post.likedBy.includes(siso.userInfo.email));
 const [noOfPushes , setNoOfPushes] = useState(post.Likes);
 const [showLikedBy , setShowLikedBy] = useState(false);
+const [showComments, setShowComments] = useState(false);
+
   const handleLikes = () =>{
     if(!isLiked){
       setNoOfPushes(noOfPushes + 1);
@@ -29,13 +32,27 @@ const [showLikedBy , setShowLikedBy] = useState(false);
     }
     else siso.clearLikedBy();
   },[showLikedBy]);
+ 
 
   return (
     <>
+      {showLikedBy && (
+        <div className="LikedByPrompt">
+          {" "}
+          <LikePrompts post={post} />{" "}
+        </div>
+      )}
       <div className="upmain">
         <div className="upc" style={{ background: `${bgcs}` }}>
           <div className="upctop" style={{ background: `${bgheader}` }}>
-            <div className="upctopprofilepic"></div>
+            <div className="upctopprofilepic">
+                <img
+                  className="upctopprofilepicimg"
+                  src={post.profilePic}
+                  alt="img"
+                  srcset=""
+                />
+            </div>
             <div className="upctopnameandsubtitle">
               <div className="upctopname">{post.fullName}</div>
               <div className="upctopsubtitle">5 posts, 2 accomplishments</div>
@@ -53,10 +70,16 @@ const [showLikedBy , setShowLikedBy] = useState(false);
             >
               <FontAwesomeIcon icon={faHandPointer} />
             </div>
-            <div className="uppushtext" onClick={async() => {
-              await siso.clearLikedBy();
-              setShowLikedBy(!showLikedBy); 
-            }}>{noOfPushes} pushes</div>
+            <div
+              className="uppushtext"
+              onClick={async () => {
+                await siso.clearLikedBy();
+                setShowComments(false);
+                setShowLikedBy(!showLikedBy);
+              }}
+            >
+              {noOfPushes} {noOfPushes == 1 ? `push` : `pushes`}
+            </div>
           </div>
           <div className="upcomment" style={{ background: `${bgcs}` }}>
             <div className="upcommenticon">
@@ -66,11 +89,23 @@ const [showLikedBy , setShowLikedBy] = useState(false);
                 style={{ color: "green" }}
               />
             </div>
-            <div className="upcommenttext">4 comments</div>
+            <div
+              className="upcommenttext"
+              onClick={() => {
+                setShowLikedBy(false);
+                setShowComments(!showComments);
+              }}
+            >
+              4 comments
+            </div>
           </div>
         </div>
-        {showLikedBy &&  <div className='LikedByPrompt'> <LikePrompts post = {post}/> </div>}
       </div>
+      {showComments && (
+        <div className="upcomments">
+          <CommentsOn />
+        </div>
+      )}
     </>
   );
 };

@@ -9,7 +9,8 @@ const LikePrompts = ({post}) => {
       <div className="ulpheading">Pushed by:</div>
       {[...siso.usersLiked].map((p, index) => (
         <div className="ulpnameandprofilepic">
-            <div className="ulpprofilepic"></div>
+            <div className="ulpprofilepic">
+            </div>
               <div className="ulpname">{p}</div>
           </div>
       ))}

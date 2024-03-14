@@ -9,8 +9,10 @@ const PostForm = ({togglePostForm}) => {
 const [motive , setMotive] = useState("");
 
   const siso = useSiso();
-  const handlePost = () => {
-    if(motive.length > 0)siso.postMotive(motive);
+  const handlePost = async() => {
+    if(motive.length > 0){
+      await siso.postMotive(motive);
+    }
     setMotive("");
     togglePostForm();
   }

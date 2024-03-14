@@ -1,7 +1,7 @@
 .ulpmain {
-  width: 22vw;
-  height: 40vh;
-  background: linear-gradient(to right, #4caf50, #ffffff);
+  width: 18vw;
+  max-height: 32vh;
+  background: linear-gradient(to right, #252424, #706c6c);
   color: white;
   display: flex;
   align-items: center;
@@ -9,30 +9,35 @@
   overflow-y: auto;
   scrollbar-width: none;
 }
-.ulpheading{
-    font-size: 1.5rem;
-    color: red;
+.ulpheading {
+  font-size: 1.5rem;
+  color: red;
+  height: 6vh;
+  margin-top: 1vh;
+  width: 13vw;
+  text-align: center;
+  border-bottom: 1.5px solid rgb(252, 250, 250);
 }
 .ulpnameandprofilepic {
   width: 19vw;
-  height: 10vh;
-  color: black;
+  height: 8vh;
   display: flex;
   flex-direction: row;
   padding-left: 1vw;
   align-items: center;
-  margin-top: 2vh;
-  font-size: large;
+  margin-top: 0.5vh;
+  font-size: 1rem;
 }
-.ulpnameandprofilepic:hover{
-    border: 1px solid white;
-    border-left: none;
-    border-right: none;
-    cursor: pointer;
+.ulpnameandprofilepic:hover {
+  border: 1px solid white;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  cursor: pointer;
 }
 .ulpprofilepic {
-  width: 6.5vh;
-  height: 6.5vh;
+  width: 5vh;
+  height: 5vh;
   border-radius: 50%;
   background-color: #fff;
   margin-right: 1vw;

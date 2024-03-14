@@ -18,9 +18,16 @@
   justify-content: space-around;
 }
 .upctopprofilepic {
-  width: 4vw;
-  height: 4vw;
-  background-color: white;
+  width: 5.4vw;
+  height: 4.5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.upctopprofilepicimg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
   border-radius: 50%;
 }
 .upctopnameandsubtitle {
@@ -109,13 +116,14 @@
 .commenticon {
   color: black;
 }
-.liked{
+.liked {
   color: red;
 }
-.LikedByPrompt{
-  z-index: 5;
-  position: absolute;
-  width: 40vw;
+.LikedByPrompt {
   display: flex;
   justify-content: center;
+  margin-top: 6vh;
+}
+.upcomments {
+  margin-top: 6vh;
 }

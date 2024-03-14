@@ -50,6 +50,9 @@ const Home = () => {
   const togglePostForm = () => {
     setPosting((posting) => !posting)
   }
+
+  console.log(siso.userInfo);
+
   return (
     <>
       <div className={`phmc ${posting ? "phmc disable" : ""}`}>
@@ -121,18 +124,20 @@ const Home = () => {
         </div>
         <div className="phmc2">
           {[...siso.allFriendsPosts].map((post, index) => (
-            <PostCards
-              key={index}
-              bgcs={bgcs[index % bgcs.length]}
-              bgheader={bgheader[index % bgheader.length]} 
-              post={post}
-            />
+            <div className="phmc2postandcomments">
+              <PostCards
+                key={index}
+                bgcs={bgcs[index % bgcs.length]}
+                bgheader={bgheader[index % bgheader.length]}
+                post={post}
+              />
+            </div>
           ))}
         </div>
         <div className="phmc3">
           <div className="phprofile">
             <div className="phprofilepic">
-              <FontAwesomeIcon icon={faUser} />
+              {siso.userInfo && <img className= "phprofilepicimg" src={siso.userInfo.profilePic} alt="image" srcset="" />}
             </div>
             <div className="pheditbutton">
               <button className="pheditbtn">Edit Profile</button>

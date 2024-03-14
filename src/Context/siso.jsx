@@ -11,6 +11,7 @@ import {
   browserSessionPersistence,
   sendEmailVerification,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -26,6 +27,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { Navigate, useNavigate } from "react-router-dom";
+import { getStorage , ref , uploadBytesResumable , getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOVcvCwpIeAj3zS2TIrKBdXI_g5bA4SMs",
@@ -42,6 +44,7 @@ const appAuth = getAuth(app);
 const userInfodb = getFirestore(app);
 const google_provider = new GoogleAuthProvider();
 const SisoContext = createContext(null);
+const storage = getStorage();
 
 export const useSiso = () => {
   return useContext(SisoContext);
@@ -49,7 +52,7 @@ export const useSiso = () => {
 
 export const SisoProvider = (props) => {
   const [user, setUser] = useState("");
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState(null); //use this to reference the user
   const [verifiedUser, setVerifiedUser] = useState(false);
   const [receivedData, setReceivedData] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -63,12 +66,20 @@ export const SisoProvider = (props) => {
   //adding user name and email to his database
   const add_user = async ({ ...userData }) => {
     try {
+       const date = new Date().getTime();
+       const storageRef = ref(storage, `${userData.email + date}`);
       const userDocRef = doc(userInfodb, "users", userData.email);
-      await setDoc(userDocRef, {
-        first_name: userData.firstName,
-        last_name: userData.lastName,
-        email: userData.email,
+      await uploadBytesResumable(storageRef, userData.profilePic).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          await setDoc(userDocRef, {
+            first_name: userData.firstName,
+            last_name: userData.lastName,
+            email: userData.email,
+            profilePic: downloadURL,
+          });
+        });
       });
+      
     } catch (error) {
       alert("Error while adding document");
     }
@@ -76,17 +87,17 @@ export const SisoProvider = (props) => {
 
   //data is stored at firestore;
   const getData = async ({ ...data }) => {
+    console.log(data);
     setUserData((userData) => (userData, data));
     await sign_up_user(data.email, data.password);
     add_user(data);
-    sign_in_user(data.email, data.password);
+    await sign_in_user(data.email, data.password);
   };
 
   //handling login and logout
   useEffect(() => {
     onAuthStateChanged(appAuth, (user) => {
       if (user) {
-        setUser(user);
         get_user_info(user.email);
         setLoggedIn(!loggedIn);
       } else {
@@ -110,6 +121,10 @@ export const SisoProvider = (props) => {
               alert("Please verify your email via a link sent on your email");
             });
           }
+        ).then(
+          () => {
+
+          }
         );
       } catch (error) {
         alert("Enter valid email address");
@@ -117,10 +132,18 @@ export const SisoProvider = (props) => {
     });
   };
 
-  const sign_in_user = (username, password) => {
+  const sign_in_user = async (username, password) => {
     setPersistence(appAuth, browserSessionPersistence)
-      .then(() => {
-        signInWithEmailAndPassword(appAuth, username, password);
+      .then(async () => {
+        const userCred = await signInWithEmailAndPassword(
+          appAuth,
+          username,
+          password
+        );
+        const user1 = userCred.user;
+        if (user1) {
+          setUser(user1);
+        }
         navigate("/home");
       })
       .catch((err) => {
@@ -140,6 +163,7 @@ export const SisoProvider = (props) => {
           first_name: doc.data().first_name,
           last_name: doc.data().last_name,
           email: doc.data().email,
+          profilePic: doc.data().profilePic,
         }));
       });
     } else {
@@ -161,7 +185,7 @@ export const SisoProvider = (props) => {
       const userMotivesRef = doc(
         userInfodb,
         "users",
-        user.email,
+        userInfo.email,
         "userMotives",
         postId
       );
@@ -169,10 +193,11 @@ export const SisoProvider = (props) => {
         Motive: motive,
         Likes: 0,
         Comments: [],
-        emailId: user.email,
+        emailId: userInfo.email,
         postId: postId,
         fullName: userInfo.first_name + " " + userInfo.last_name,
         likedBy: [],
+        profilePic : userInfo.profilePic,
       });
       console.log("Success");
     } catch (err) {
@@ -216,18 +241,38 @@ export const SisoProvider = (props) => {
   }, []);
 
   const likedUsers = async (userId, postId) => {
-    const thePostRef = doc(userInfodb, "users", userId, "userMotives", postId);
-    const thePost = await getDoc(thePostRef);
-    thePost.data().likedBy.forEach(async (likedEmail, index) => {
-      const docRef = doc(userInfodb, "users", likedEmail);
-      const userData = await getDoc(docRef);
-      setUsersLiked((prev) => {
-        return [
-          ...prev,
-          userData.data().first_name + " " + userData.data().last_name,
-        ];
-      });
-    });
+    // const thePostRef = doc(userInfodb, "users", userId, "userMotives", postId);
+    // const thePost = await getDoc(thePostRef);
+    // thePost.data().likedBy.forEach(async (likedEmail, index) => {
+    //   const docRef = doc(userInfodb, "users", likedEmail);
+    //   const userData = await getDoc(docRef);
+    //   setUsersLiked((prev) => {
+    //     return [
+    //       ...prev,
+    //       userData.data().first_name + " " + userData.data().last_name,
+    //     ];
+    //   });
+    // });
+    const unsub = onSnapshot(
+      doc(userInfodb, "users", userId, "userMotives", postId),
+      (thePost) => {
+        setUsersLiked([]);
+        thePost.data().likedBy.forEach(async (likedEmail, index) => {
+          const docRef = doc(userInfodb, "users", likedEmail);
+          const userData = await getDoc(docRef);
+
+          setUsersLiked((prev) => {
+            return [
+              ...prev,
+              userData.data().first_name + " " + userData.data().last_name,
+            ];
+          });
+        });
+      }
+    );
+    return () => {
+      unsub();
+    };
   };
 
   const updatePushes = async (userId, postId, flag, likedBy) => {

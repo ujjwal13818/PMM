@@ -17,6 +17,7 @@ const Sign_up = ({ toggleSign_up }) => {
     lastName: "",
     email: "",
     password: "",
+    profilePic: "",
   });
 
   const [error, setError] = useState("");
@@ -38,6 +39,7 @@ const Sign_up = ({ toggleSign_up }) => {
         lastName: "",
         email: "",
         password: "",
+        profilePic: "",
       });
     setConfirmPassword("");
   };
@@ -146,6 +148,14 @@ const Sign_up = ({ toggleSign_up }) => {
                 style={{ color: "red", fontSize: "13px", marginBottom: "1vh" }}
               >
                 {error}
+              </div>
+              <div className="subaddimg">
+                <input type="file" id="file" name="file" value= "" onChange={(e) => {
+                  setUserData({
+                 ...userData,
+                    profilePic: e.target.files[0],
+                  });
+                }}/>
               </div>
               <div className="sub_btn">
                 <button className="cbsub" type="submit">
