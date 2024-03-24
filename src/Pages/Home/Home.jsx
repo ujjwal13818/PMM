@@ -51,7 +51,6 @@ const Home = () => {
     setPosting((posting) => !posting)
   }
 
-  console.log(siso.userInfo);
 
   return (
     <>

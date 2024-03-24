@@ -1,0 +1,36 @@
+.uacmain {
+  height: 20vh;
+  width: 18vw;
+}
+.uacinput {
+  width: 18vw;
+  height: 20vh;
+  display: flex;
+  font-size: large;
+}
+.uacerror {
+  width: auto;
+  font-size: small;
+  height: auto;
+  color: red;
+  font-weight: 500;
+}
+.uacbutton {
+  width: auto;
+  height: auto;
+  padding-top: 1vh;
+}
+.uacbtn {
+  padding: 7px 20px;
+  font-size: 15px;
+  color: black;
+  font-weight: 600;
+  background: linear-gradient(to right, rgb(169, 215, 218), white);
+  transition: .2s;
+}
+.uacbtn:hover {
+    cursor: pointer;
+    color: rgba(0, 0, 0);
+    transform: scale(1.05);
+}
+

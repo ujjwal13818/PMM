@@ -62,6 +62,7 @@ export const SisoProvider = (props) => {
   const [allFriendsPosts, setAllFriendsPosts] = useState([]); // all friends post of the user;
   const [usersLiked, setUsersLiked] = useState([]);
   const [refreshFeed, setRefreshFeed] = useState(false);
+  const [allComments , setAllComments] = useState([]);
 
   //adding user name and email to his database
   const add_user = async ({ ...userData }) => {
@@ -296,6 +297,46 @@ export const SisoProvider = (props) => {
   const clearLikedBy = () => {
     setUsersLiked([]);
   };
+
+  //add comment code
+  const addComment = async(userId, postId, cmntObj) => {
+    const thePostRef = doc(userInfodb, "users" , userId, "userMotives", postId);
+    const thePost = await getDoc(thePostRef);
+    var newComments = thePost.data().Comments;
+    newComments = [...newComments , cmntObj];
+    await updateDoc(thePostRef, {
+      Comments: newComments
+    })
+    console.log("success");
+  }
+
+  //get comment  code
+  const getComments = async(userId , postId) => {
+    const unsub = onSnapshot(doc(userInfodb, "users" , userId , "userMotives", postId),(thePost) => {
+        setAllComments([]);
+        thePost.data().Comments.forEach(async(Comment , index) => {
+          const docRef = doc(userInfodb, "users", Comment.commentedBy);
+          const userData = await getDoc(docRef);
+          setAllComments((prev) => {
+            return [...prev , 
+              {fullName: userData.data().first_name + " " + userData.data().last_name,
+              date: Comment.date,
+              Comment: Comment.comment,}
+            ];
+          })
+        })
+    });
+    // console.log(allComments);
+    return () => {
+      unsub();
+    }
+  }
+
+  //clear comments;
+  const clearComments = () =>{
+    setAllComments([]);
+  }
+
   return (
     <SisoContext.Provider
       value={{
@@ -313,6 +354,10 @@ export const SisoProvider = (props) => {
         usersLiked,
         clearLikedBy,
         likedUsers,
+        addComment,
+        getComments,
+        allComments,
+        clearComments,
       }}
     >
       {props.children}
