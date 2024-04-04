@@ -41,6 +41,7 @@
 .upctopname {
   font-size: larger;
   color: rgb(61, 75, 119);
+  text-transform: capitalize;
 }
 .upctopsubtitle {
   font-size: 1rem;

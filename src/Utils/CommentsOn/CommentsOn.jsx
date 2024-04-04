@@ -14,7 +14,9 @@ const CommentsOn = () => {
         {siso.allComments.length == 0 ? <div className="ucocontent">No comments yet</div> : [...siso.allComments].map((Comment, index) => (
           <div className="ucocontent">
             <div className="ucopicnamedate">
-              <div className="ucopic"></div>
+              <div className="ucopic">
+                <img src={Comment.profilePic} alt="" className="ucopicimg" />
+              </div>
               <div className="uconamedate">
                 <div className="uconame">{Comment.fullName}</div>
                 <div className="ucodate">{Comment.date}</div>

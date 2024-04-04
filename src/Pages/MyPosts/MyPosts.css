@@ -1,0 +1,32 @@
+.pmpmainContainer{
+    height: 100vh;
+    width: 100vw;;
+     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+}
+.pmpheading{
+    height: 22vh;
+    width: 100%;
+    display: flex;
+}
+.pmpheadingnameandtitle{
+    height: 22vh;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    margin-left: 110px;
+    margin-top: 4vh
+}
+.pmpheadingname{
+    font-style: italic;
+    color: red;
+    margin-bottom: 5vh;
+}
+.pmpheadingtitle{
+    color: rgb(112, 56, 196);
+    font-weight: 540;
+     position: absolute;
+     width: calc(100vh-110px);
+     left: 45%;
+     margin-top: 5vh;
+     text-decoration: underline;
+}
