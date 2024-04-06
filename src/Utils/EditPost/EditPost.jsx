@@ -3,8 +3,8 @@ import './EditPost.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const EditPost = () => {
-    const [motive,setMotive] = useState("h");
+const EditPost = ({handlePage}) => {
+    const [motive,setMotive] = useState("");
   return (
     <>
       <div className="uepmain">
@@ -13,6 +13,7 @@ const EditPost = () => {
             icon={faXmark}
             className="pfXmark"
             style={{ position: "absolute", top: "23%", right: "26%" }}
+            onClick={handlePage}
           />
           <div className="pfheading">
             <h1>Edit your motive</h1>
@@ -33,7 +34,7 @@ const EditPost = () => {
               <input type="file" />
             </div>
             <div className="pfaddmotivebtn">
-              <button className="addmotivebtn">Add motive</button>
+              <button className="addmotivebtn">Edit motive</button>
             </div>
           </div>
         </div>
