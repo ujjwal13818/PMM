@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./MyPosts.css";
 import { useSiso } from "../../Context/siso";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,19 +11,23 @@ import {
   faUser,
   faArrowRightFromBracket,
   faPencil,
+  faCalendarDays,
+  faShare
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import Fcards from "../../Utils/Fcards/Fcards";
 import PostCards from "../../Utils/PostCards/PostCards";
+import EditPost from "../../Utils/EditPost/EditPost";
 
 const MyPosts = () => {
   const siso = useSiso();
   const [isHome, setHome] = useState(true);
   const [isPost, setPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
-  const [posting, setPosting] = useState(false);
+  const [deactivated, setDeactivated] = useState(false);
   const [isNotification, setNotification] = useState(false);
   const [isProfile, setProfile] = useState(false);
+  const [isEditing, setEditing] = useState(false);
 
   const setIconFalse = () => {
     setHome(false);
@@ -43,7 +47,6 @@ const MyPosts = () => {
     "linear-gradient(135deg, #A8E063, #56AB2F)",
   ];
   const bgheader = ["#F8B500", "#2193b0", "#56AB2F"];
-
   return (
     <>
       <div className="pmpmainContainer">
@@ -111,15 +114,59 @@ const MyPosts = () => {
             <div className="pmpheadingtitle">YOUR MOTIVES</div>
           </div>
         </div>
-        <div className="pmpallposts">
-          {[...Array(10)].map((_, index) => (
-            <PostCards
-              key={index}
-              bgcs={bgcs[index % bgcs.length]}
-              bgheader={bgheader[index % bgheader.length]}
-            />
-          ))}
-        </div>
+        {
+          isEditing && (
+            <EditPost/>
+          )
+        }
+        {!deactivated && (
+          <div className="pmpallposts">
+            {[...siso.allPosts].map((post, index) => (
+              <div className="pmpsinglepost">
+                <div className="pmpsinglepostcard">
+                  <PostCards
+                    key={index}
+                    bgcs={bgcs[index % bgcs.length]}
+                    bgheader={bgheader[index % bgheader.length]}
+                    post={post}
+                  />
+                </div>
+                <div className="pmpbtns">
+                  <div className="pmpbtns1">
+                    <div className="pmpeditbtn">
+                      <button
+                        className="pmpeditbtn"
+                        onClick={() => {
+                          setDeactivated(true);
+                          setEditing(true);
+                        }}
+                      >
+                        Edit motive
+                      </button>
+                    </div>
+                    <div className="pmpdeletebtn">
+                      <button className="pmpdeletebtn">Delete motive</button>
+                    </div>
+                  </div>
+                  <div className="pmpbtns2">
+                    <div className="pmpdeadlinebtn">
+                      <button className="pmpdeadlinebtn">
+                        Add or extend deadline
+                        <FontAwesomeIcon icon={faCalendarDays} />
+                      </button>
+                    </div>
+                    <div className="pmpsharebtn">
+                      <button className="pmpsharebtn">
+                        Accomplished and share
+                        <FontAwesomeIcon icon={faShare} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

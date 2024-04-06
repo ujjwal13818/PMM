@@ -1,3 +1,9 @@
+.likepostcomment{
+  width: 65vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 .upmain:hover {
   scale: 1.005;
   transition: 0.3s;

@@ -1,7 +1,9 @@
 .pmpmainContainer{
     height: 100vh;
     width: 100vw;;
-     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    overflow: auto;
+    scrollbar-width: none;
 }
 .pmpheading{
     height: 22vh;
@@ -29,4 +31,126 @@
      left: 45%;
      margin-top: 5vh;
      text-decoration: underline;
+}
+.pmpallposts{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: -4vh;
+}
+.pmpsinglepost{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    padding-bottom: 40px;
+}
+.pmpsinglepost:hover{
+    border-bottom: 1px solid rgb(172, 179, 224);
+    border-top: 1px solid rgb(172, 179, 224);
+}
+.pmpsinglepostcard{
+    width: 65vw;
+}
+.pmpbtns{
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+}
+.pmpbtns1,.pmpbtns2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.pmpbtns1{
+    margin-bottom: .8vh;
+}
+.pmpbtns2{
+    margin-top: .8vh;
+}
+.pmpeditbtn{
+    width: 15vw;
+    height: 5vh;
+    font-size: large;    
+   margin-right: .5vw;
+}
+button.pmpeditbtn{
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  background-color: #333333;
+}
+button.pmpeditbtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.pmpdeletebtn{
+    width: 15vw;
+    height: 5vh;
+    font-size: large;    
+}
+button.pmpdeletebtn{
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  background-color: #e42a2a;
+}
+button.pmpdeletebtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.pmpdeadlinebtn{
+    width: 15vw;
+    height: 5vh;
+    font-size: large;    
+    margin-right: .5vw;
+}
+button.pmpdeadlinebtn{
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #131313;
+  background-color: #fcfa71;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+button.pmpdeadlinebtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.pmpsharebtn{
+    width: 15vw;
+    height: 5vh;
+    font-size: large;    
+}
+button.pmpsharebtn{
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #050505;
+  background-color: #07ed17;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+button.pmpsharebtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }

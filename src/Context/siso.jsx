@@ -159,7 +159,6 @@ export const SisoProvider = (props) => {
         console.log(err.message);
       });
   };
-
   const get_user_info = async (username) => {
     const userDocRef = collection(userInfodb, "users");
     const q = query(userDocRef, where("email", "==", username));
@@ -178,7 +177,6 @@ export const SisoProvider = (props) => {
       alert("Internal server error");
     }
   };
-
   const sign_out = () => {
     signOut(appAuth).then(() => {
       setUser("");
@@ -214,19 +212,19 @@ export const SisoProvider = (props) => {
   };
 
   //users own posts
-  useEffect(() => {
-    const getAllPosts = async () => {
-      const allPosts = await getDocs(
-        collection(userInfodb, "users", user.email, "userMotives")
-      );
-      allPosts.forEach((doc) => {
-        setAllPosts((prevPosts) => {
-          return [...prevPosts, doc.data()];
-        });
+  const getAllPosts = async () => {
+    const allPosts = await getDocs(
+      collection(userInfodb, "users", userInfo.email, "userMotives")
+    );
+    allPosts.forEach((doc) => {
+      setAllPosts((prevPosts) => {
+        return [...prevPosts, doc.data()];
       });
-    };
+    });
+  };
+  useEffect(() => {
     getAllPosts();
-  }, []);
+  }, [userInfo]);
 
   //all friend's posts;
   useEffect(async () => {
