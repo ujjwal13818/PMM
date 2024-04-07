@@ -185,7 +185,7 @@ export const SisoProvider = (props) => {
   };
 
   //posting
-  const postMotive = async (motive) => {
+  const postMotive = async (motive,deadline) => {
     try {
       const postId = Date.now().toString();
       const userMotivesRef = doc(
@@ -204,6 +204,7 @@ export const SisoProvider = (props) => {
         fullName: userInfo.first_name + " " + userInfo.last_name,
         likedBy: [],
         profilePic: userInfo.profilePic,
+        deadline: deadline,
       });
       console.log("Success");
     } catch (err) {
@@ -354,6 +355,13 @@ export const SisoProvider = (props) => {
     setAllComments([]);
   };
 
+  //delete motives
+  const deleteMotives = async (userId, postId) => {
+    const thePostRef = doc(userInfodb, "users", userId, "userMotives", postId);
+    await deleteDoc(thePostRef);
+    console.log("success");
+  };
+
   return (
     <SisoContext.Provider
       value={{
@@ -375,6 +383,7 @@ export const SisoProvider = (props) => {
         getComments,
         allComments,
         clearComments,
+        deleteMotives,
       }}
     >
       {props.children}

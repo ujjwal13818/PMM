@@ -20,6 +20,8 @@ import Deadline from "../../Utils/Deadline/Deadline";
 import DeletePost from "../../Utils/DeletePost/DeletePost";
 import EditPost from "../../Utils/EditPost/EditPost";
 import PostCards from "../../Utils/PostCards/PostCards";
+import Navbar from "../../Components/Navbar/Navbar";
+import Congrats from "../../Utils/Congrats/Congrats";
 
 
 
@@ -31,11 +33,14 @@ const MyPosts = () => {
   const [isSearch, setSearch] = useState(false);
   const [isNotification, setNotification] = useState(false);
   const [isProfile, setProfile] = useState(false);
-  const [deactivated, setDeactivated] = useState(true);
+  const [deactivated, setDeactivated] = useState(false);
   const [isEditing, setEditing] = useState(false);
   const [isDeleting , setDeleting] = useState(false);
   const [isDeadline , setDeadline] = useState(false);
-  const [isShare , setShare] = useState(true);
+  const [isShare , setShare] = useState(false);
+  const [showHeading , setShowHeading] = useState(true);
+  const [isCongrats, setIsCongrats] = useState(false);
+  // const []
 
   const setIconFalse = () => {
     setHome(false);
@@ -56,12 +61,17 @@ const MyPosts = () => {
   ];
   const bgheader = ["#F8B500", "#2193b0", "#56AB2F"];
   const handlePage = () => {
+    setShowHeading(true);
     setDeactivated(false);
     setEditing(false);
     setDeleting(false);
     setDeadline(false);
     setShare(false);
+    setIsCongrats(false);
   };
+  const handleCongrats = () => {
+    setIsCongrats(true);
+  }
   return (
     <>
       <div className="pmpmainContainer">
@@ -121,86 +131,105 @@ const MyPosts = () => {
           </div>
         </div>
         <div className="pmpheading">
+          <div className="pmpnav">
+            <Navbar />
+          </div>
           <div className="pmplogo">
             <img src="/whiteLogo.png" alt="" srcSet="" className="phimg" />
           </div>
           <div className="pmpheadingnameandtitle">
-            <div className="pmpheadingname">Hello, UJJWAL</div>
-            <div className="pmpheadingtitle">YOUR MOTIVES</div>
+            {siso.userInfo && (
+              <div className="pmpheadingname">
+                Hello, {siso.userInfo.first_name}
+              </div>
+            )}
+
+            {showHeading && (
+              <div className="pmpheadingtitle"> YOUR MOTIVES</div>
+            )}
           </div>
         </div>
-        {isShare && <Share handlePage = {handlePage}/>}
+        {isShare && (
+          <Share handlePage={handlePage} handleCongrats={handleCongrats} />
+        )}
         {isDeadline && <Deadline handlePage={handlePage} />}
         {isDeleting && <DeletePost handlePage={handlePage} />}
         {isEditing && <EditPost handlePage={handlePage} />}
-        {!deactivated && (
-          <div className="pmpallposts">
-            {[...siso.allPosts].map((post, index) => (
-              <div className="pmpsinglepost">
-                <div className="pmpsinglepostcard">
-                  <PostCards
-                    key={index}
-                    bgcs={bgcs[index % bgcs.length]}
-                    bgheader={bgheader[index % bgheader.length]}
-                    post={post}
-                  />
-                </div>
-                <div className="pmpbtns">
-                  <div className="pmpbtns1">
-                    <div className="pmpeditbtn">
-                      <button
-                        className="pmpeditbtn"
-                        onClick={() => {
-                          setDeactivated(true);
-                          setEditing(true);
-                        }}
-                      >
-                        Edit motive
-                      </button>
-                    </div>
-                    <div className="pmpdeletebtn">
-                      <button
-                        className="pmpdeletebtn"
-                        onClick={() => {
-                          setDeactivated(true);
-                          setDeleting(true);
-                        }}
-                      >
-                        Delete motive
-                      </button>
-                    </div>
-                  </div>
-                  <div className="pmpbtns2">
-                    <div className="pmpdeadlinebtn">
-                      <button
-                        className="pmpdeadlinebtn"
-                        onClick={() => {
-                          setDeactivated(true);
-                          setDeadline(true);
-                        }}
-                      >
-                        Add or extend deadline
-                        <FontAwesomeIcon icon={faCalendarDays} />
-                      </button>
-                    </div>
-                    <div
-                      className="pmpsharebtn"
+        {isCongrats && <Congrats handlePage={handlePage} />}
+        {[...siso.allPosts].map((post, index) => (
+          <div
+            className={`pmpallposts ${
+              deactivated ? "pmpallposts disable1" : ""
+            }`}
+          >
+            <div className="pmpsinglepost">
+              <div className="pmpsinglepostcard">
+                <PostCards
+                  key={index}
+                  bgcs={bgcs[index % bgcs.length]}
+                  bgheader={bgheader[index % bgheader.length]}
+                  post={post}
+                />
+              </div>
+              <div className="pmpbtns">
+                <div className="pmpbtns1">
+                  <div className="pmpeditbtn">
+                    <button
+                      className="pmpeditbtn"
                       onClick={() => {
                         setDeactivated(true);
-                        setShare(true);
+                        setEditing(true);
+                        setShowHeading(false);
                       }}
                     >
-                      <button className="pmpsharebtn">
-                        Accomplished and share
-                        <FontAwesomeIcon icon={faShare} />
-                      </button>
-                    </div>
+                      Edit motive
+                    </button>
+                  </div>
+                  <div className="pmpdeletebtn">
+                    <button
+                      className="pmpdeletebtn"
+                      onClick={() => {
+                        setDeactivated(true);
+                        setDeleting(true);
+                        setShowHeading(false);
+                      }}
+                    >
+                      Delete motive
+                    </button>
+                  </div>
+                </div>
+                <div className="pmpbtns2">
+                  <div className="pmpdeadlinebtn">
+                    <button
+                      className="pmpdeadlinebtn"
+                      onClick={() => {
+                        setDeactivated(true);
+                        setDeadline(true);
+                        setShowHeading(false);
+                      }}
+                    >
+                      Add or extend deadline
+                      <FontAwesomeIcon icon={faCalendarDays} />
+                    </button>
+                  </div>
+                  <div
+                    className="pmpsharebtn"
+                    onClick={() => {
+                      setDeactivated(true);
+                      setShare(true);
+                      setShowHeading(false);
+                    }}
+                  >
+                    <button className="pmpsharebtn">
+                      Accomplished and share
+                      <FontAwesomeIcon icon={faShare} />
+                    </button>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
-        )}
+        ))}
       </div>
     </>
   );

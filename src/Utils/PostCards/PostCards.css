@@ -15,8 +15,19 @@
   flex-direction: column;
   margin-top: 40px;
 }
+.upcdeadlineandupcheading{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.upcheading{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .upctop {
-  width: 26vw;
+  width: 100%;
   height: 10vh;
   background-color: #f5f5f5;
   display: flex;
@@ -52,6 +63,10 @@
 .upctopsubtitle {
   font-size: 1rem;
   color: rgb(255, 255, 255);
+}
+.upcshowdeadlineon{
+  margin-top: 2vh;
+  margin-right: 2vh;
 }
 .upcbottom {
   color: black;

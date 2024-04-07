@@ -4,6 +4,9 @@ import { Routes,Route, Navigate } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import { useSiso } from './Context/siso';
 import MyPosts from './Pages/MyPosts/MyPosts';
+import PostForm from './Utils/PostForm/PostForm';
+import Navbar from './Components/Navbar/Navbar';
+import Congrats from './Utils/Congrats/Congrats';
 
 
 

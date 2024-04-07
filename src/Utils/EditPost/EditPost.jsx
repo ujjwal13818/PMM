@@ -12,7 +12,7 @@ const EditPost = ({handlePage}) => {
           <FontAwesomeIcon
             icon={faXmark}
             className="pfXmark"
-            style={{ position: "absolute", top: "23%", right: "26%" }}
+            style={{ position: "absolute", top: "3%", right: "26%" }}
             onClick={handlePage}
           />
           <div className="pfheading">
@@ -30,9 +30,6 @@ const EditPost = ({handlePage}) => {
             ></textarea>
           </div>
           <div className="pfaddimgandaddmotive">
-            <div className="pfaddimg">
-              <input type="file" />
-            </div>
             <div className="pfaddmotivebtn">
               <button className="addmotivebtn">Edit motive</button>
             </div>

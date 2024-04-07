@@ -9,6 +9,8 @@
     align-items: center;
     flex-direction: column;
     background-color: #f1f0ac;
+    z-index: 6;
+    border: 1px solid black;
 }
 .udldates{
     display: flex;
