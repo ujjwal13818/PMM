@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  font-family: "Space Grotesk", sans-serif;
 }
 .upmain:hover {
   scale: 1.005;
@@ -14,6 +15,8 @@
   display: flex;
   flex-direction: column;
   margin-top: 40px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 550;
 }
 .upcdeadlineandupcheading{
   width: 100%;
@@ -66,11 +69,16 @@
 }
 .upcshowdeadlineon{
   margin-top: 2vh;
-  margin-right: 2vh;
+  margin-right: 1vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 15vw;
 }
 .upcbottom {
   color: black;
   padding: 5px 12px;
+  font-size: 1.2rem;
 }
 .uppushcomment {
   width: 45vw;

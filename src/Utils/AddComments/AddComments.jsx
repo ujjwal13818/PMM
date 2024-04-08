@@ -3,15 +3,15 @@ import "./AddComments.css";
 import { useState } from "react";
 import { useSiso } from "../../Context/siso";
 
-const AddComments = ({post}) => {
+const AddComments = ({ post }) => {
   const siso = useSiso();
   const [comment, setComment] = useState("");
   const [cmntObj, setCmntObj] = useState();
   const [error, setError] = useState(false);
   useEffect(() => {
-    if(cmntObj == undefined)return;
-    siso.addComment(post.emailId, post.postId , cmntObj);
-  },[cmntObj])
+    if (cmntObj == undefined) return;
+   siso.addComment(post.emailId, post.postId, cmntObj);
+  }, [cmntObj]);
 
   const handleSubmit = () => {
     if (comment.length == 0) {
@@ -23,16 +23,12 @@ const AddComments = ({post}) => {
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "long" });
     const year = date.getFullYear();
-    setCmntObj(
-
-        {
-            comment: comment,
-            date: `${day}-${month}-${year}`,
-            commentedBy: siso.userInfo.email
-        }
-    )
+    setCmntObj({
+      comment: comment,
+      date: `${day}-${month}-${year}`,
+      commentedBy: siso.userInfo.email,
+    });
     setComment("");
-
   };
 
   return (

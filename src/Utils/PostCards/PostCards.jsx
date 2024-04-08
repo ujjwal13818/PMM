@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./PostCards.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHandPointer, faComment } from "@fortawesome/free-solid-svg-icons";
+import { faHandPointer, faComment, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { useSiso } from "../../Context/siso";
 import LikePrompts from "../LikePrompts/LikePrompts";
 import CommentsOn from "../CommentsOn/CommentsOn";
@@ -28,6 +28,7 @@ const PostCards = ({ bgcs, bgheader, post }) => {
     }
     setIsLiked(!isLiked);
   };
+ 
 
   useEffect(() => {
     if (showLikedBy) {
@@ -66,7 +67,7 @@ const PostCards = ({ bgcs, bgheader, post }) => {
                   <div className="upctopnameandsubtitle">
                     <div className="upctopname">{post.fullName}</div>
                     <div className="upctopsubtitle">
-                      5 posts, 2 accomplishments
+                      {siso.userInfo.posts} posts, {siso.userInfo.accomplishments} accomplishments
                     </div>
                   </div>
                 </div>
@@ -74,6 +75,11 @@ const PostCards = ({ bgcs, bgheader, post }) => {
                   {post.deadline != null ? (
                     <div className="upcshowdeadlineon">
                       Deadline : {post.deadline}
+                      {post.isAccomplished && (
+                        <div className="isaccomplishedicon">
+                          <FontAwesomeIcon icon={faCircleCheck} style={{color: 'rgba(250,255,155)'}} />
+                        </div>
+                      )}
                     </div>
                   ) : (
                     ""
@@ -81,9 +87,9 @@ const PostCards = ({ bgcs, bgheader, post }) => {
                 </div>
               </div>
             </div>
-          <div className="upcbottom" style={{ background: `${bgcs}` }}>
-            {post.Motive}
-          </div>
+            <div className="upcbottom" style={{ background: `${bgcs}` }}>
+              {post.Motive}
+            </div>
           </div>
           <div className="uppushcomment" style={{ background: `${bgcs}` }}>
             <div className="uppush" style={{ background: `${bgcs}` }}>
@@ -133,7 +139,7 @@ const PostCards = ({ bgcs, bgheader, post }) => {
         </div>
         {showAddComments && (
           <div className="upAddComments">
-            <AddComments post={post} />
+            <AddComments post={post}/>
           </div>
         )}
         {showComments && (

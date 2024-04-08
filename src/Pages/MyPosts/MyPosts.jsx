@@ -70,7 +70,8 @@ const MyPosts = () => {
     setShare(false);
     setIsCongrats(false);
   };
-  const handleCongrats = () => {
+  const handleCongrats = async() => {
+    if(!currentpost.accomplished)await siso.accomplished(currentpost.postId);
     setIsCongrats(true);
   }
   return (
@@ -223,6 +224,7 @@ const MyPosts = () => {
                   <div
                     className="pmpsharebtn"
                     onClick={() => {
+                      setCurrentPost(post);
                       setDeactivated(true);
                       setShare(true);
                       setShowHeading(false);

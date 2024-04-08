@@ -58,7 +58,6 @@
 }
 .phlogo {
   width: 20vw;
-  /* background-color: rgb(243, 243, 243); */
   background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   margin-left: -1vh;
   top: 0;
@@ -73,7 +72,6 @@
 }
 .phmc1 {
   width: 20vw;
-  /* background-color: rgba(197, 197, 192, 0.146); */
   background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   overflow-y: auto;
   font-size: larger;

@@ -11,7 +11,7 @@ import {
   faEnvelope,
   faUser,
   faArrowRightFromBracket,
-  faPencil
+  faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import Fcards from "../../Utils/Fcards/Fcards";
 import PostCards from "../../Utils/PostCards/PostCards";
@@ -22,21 +22,46 @@ const Home = () => {
   const { id } = useParams();
   const siso = useSiso();
   const iconRef = useRef();
-  const [isHome, setHome] = useState(true);
+  const [isHome, setHome] = useState(false);
   const [isPost, setPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
-  const [posting , setPosting] = useState(false);
+  const [posting, setPosting] = useState(false);
   const [isNotification, setNotification] = useState(false);
   const [isProfile, setProfile] = useState(false);
+  const [changeURL, setChangeURL] = useState(false);
+  const [destination, setDestination] = useState("/home");
+  const navigate = useNavigate();
 
-  const setIconFalse = () => {
+  useEffect(() => {
+    setChangeURL(false);
     setHome(false);
     setPost(false);
     setSearch(false);
     setNotification(false);
     setProfile(false);
-  };
-  const navigate = useNavigate();
+  }, [changeURL]);
+  useEffect(() => {
+    if (destination === "/home") setHome(true);
+  }, [changeURL]);
+  useEffect(() => {
+    if (destination === "/myposts") setPost(true);
+  }, [changeURL]);
+  useEffect(() => {
+    if (destination === "/search") setSearch(true);
+  }, [changeURL]);
+  useEffect(() => {
+    if (destination === "/notification") setNotification(true);
+  }, [changeURL]);
+  useEffect(() => {
+    if (destination === "/profile") setProfile(true);
+  }, [changeURL]);
+  // const setIconFalse = () => {
+  //   setHome(false);
+  //   setPost(false);
+  //   setSearch(false);
+  //   setNotification(false);
+  //   setProfile(false);
+  // };
   const handleSignOut = () => {
     siso.sign_out();
     navigate("/");
@@ -48,9 +73,8 @@ const Home = () => {
   ];
   const bgheader = ["#F8B500", "#2193b0", "#56AB2F"];
   const togglePostForm = () => {
-    setPosting((posting) => !posting)
-  }
-
+    setPosting((posting) => !posting);
+  };
 
   return (
     <>
@@ -58,8 +82,9 @@ const Home = () => {
         <div className="phnv">
           <div
             className={`${isHome ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setIconFalse();
+            onClick={async () => {
+              setChangeURL(true);
+              setDestination("/home");
               setHome(true);
             }}
           >
@@ -67,8 +92,9 @@ const Home = () => {
           </div>
           <div
             className={`${isPost ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setIconFalse();
+            onClick={async () => {
+              setChangeURL(true);
+              setDestination("/myposts");
               setPost(true);
             }}
           >
@@ -77,7 +103,8 @@ const Home = () => {
           <div
             className={`${isSearch ? "phnvicon active" : "phnvicon"}`}
             onClick={() => {
-              setIconFalse();
+              setChangeURL(true);
+              setDestination("/search");
               setSearch(true);
             }}
           >
@@ -86,7 +113,8 @@ const Home = () => {
           <div
             className={`${isNotification ? "phnvicon active" : "phnvicon"}`}
             onClick={() => {
-              setIconFalse();
+              setChangeURL(true);
+              setDestination("/notification");
               setNotification(true);
             }}
           >
@@ -95,7 +123,8 @@ const Home = () => {
           <div
             className={`${isProfile ? "phnvicon active" : "phnvicon"}`}
             onClick={() => {
-              setIconFalse();
+              setChangeURL(true);
+              setDestination("/profile");
               setProfile(true);
             }}
           >
@@ -136,7 +165,14 @@ const Home = () => {
         <div className="phmc3">
           <div className="phprofile">
             <div className="phprofilepic">
-              {siso.userInfo && <img className= "phprofilepicimg" src={siso.userInfo.profilePic} alt="image" srcset="" />}
+              {siso.userInfo && (
+                <img
+                  className="phprofilepicimg"
+                  src={siso.userInfo.profilePic}
+                  alt="image"
+                  srcset=""
+                />
+              )}
             </div>
             <div className="pheditbutton">
               <button className="pheditbtn">Edit Profile</button>

@@ -25,7 +25,7 @@ import {
   setDoc,
   updateDoc,
   onSnapshot,
-  deleteDoc
+  deleteDoc,
 } from "firebase/firestore";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
@@ -73,8 +73,12 @@ export const SisoProvider = (props) => {
   //adding user name and email to his database
   const add_user = async ({ ...userData }) => {
     try {
-      const date = new Date().getTime();
-      const storageRef = ref(storage, `${userData.email + date}`);
+      const date = new Date();
+      const time = new Date().getTime();
+      const day = date.getDate();
+      const month = date.toLocaleString("default", { month: "long" });
+      const year = date.getFullYear();
+      const storageRef = ref(storage, `${userData.email + time}`);
       const userDocRef = doc(userInfodb, "users", userData.email);
       await uploadBytesResumable(storageRef, userData.profilePic).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
@@ -83,20 +87,25 @@ export const SisoProvider = (props) => {
             last_name: userData.lastName,
             email: userData.email,
             profilePic: downloadURL,
+            posts: 0,
+            accomplishments: 0,
+            peers: [],
+            joinedOn: `${day}-${month}-${year}`,
+            supportive: 0,
           });
         });
       });
     } catch (error) {
       alert("Error while adding document");
+      console.log(error);
     }
   };
 
   //data is stored at firestore;
   const getData = async ({ ...data }) => {
-    console.log(data);
     setUserData((userData) => (userData, data));
     await sign_up_user(data.email, data.password);
-    add_user(data);
+    await add_user(data);
     await sign_in_user(data.email, data.password);
   };
 
@@ -118,7 +127,6 @@ export const SisoProvider = (props) => {
       }
     });
   }, []);
-
   useEffect(() => {
     if (user.emailVerified) {
       setVerifiedUser((verifiedUser) => true);
@@ -160,6 +168,8 @@ export const SisoProvider = (props) => {
         console.log(err.message);
       });
   };
+
+  //*******************Userinfo is feed here*******************;
   const get_user_info = async (username) => {
     const userDocRef = collection(userInfodb, "users");
     const q = query(userDocRef, where("email", "==", username));
@@ -172,23 +182,29 @@ export const SisoProvider = (props) => {
           last_name: doc.data().last_name,
           email: doc.data().email,
           profilePic: doc.data().profilePic,
+          posts: doc.data().posts,
+          accomplishments: doc.data().accomplishments,
+          peers: doc.data().peers,
+          joinedOn: doc.data().joinedOn,
+          supportive: doc.data().supportive,
         }));
       });
     } else {
       alert("Internal server error");
     }
   };
+
   const sign_out = () => {
     signOut(appAuth).then(() => {
       setUser("");
       setUserInfo(null);
     });
   };
-
   //posting
-  const postMotive = async (motive,deadline) => {
+  const postMotive = async (motive, deadline) => {
     try {
       const postId = Date.now().toString();
+      const theUserRef = doc(userInfodb, "users", userInfo.email);
       const userMotivesRef = doc(
         userInfodb,
         "users",
@@ -206,7 +222,13 @@ export const SisoProvider = (props) => {
         likedBy: [],
         profilePic: userInfo.profilePic,
         deadline: deadline,
+        isAccomplished: false,
       });
+      var posts = userInfo.posts;
+      await updateDoc(theUserRef, {
+        posts: posts + 1,
+      });
+      // await get_user_info(userInfo.email);
       console.log("Success");
     } catch (err) {
       console.error("Error adding document: ", err);
@@ -358,6 +380,7 @@ export const SisoProvider = (props) => {
 
   //delete motives
   const deleteMotives = async (postId) => {
+    const theUserRef = doc(userInfodb, "users", userInfo.email);
     const thePostRef = doc(
       userInfodb,
       "users",
@@ -365,7 +388,15 @@ export const SisoProvider = (props) => {
       "userMotives",
       postId
     );
+    const post = await getDoc(thePostRef);
+    const f = post.data().accomplished;
     await deleteDoc(thePostRef);
+    var posts = userInfo.posts;
+    var accomplishments = userInfo.accomplishments;
+    await updateDoc(theUserRef, {
+      posts: posts - 1,
+      accomplishments: f ? accomplishments - 1 : accomplishments,
+    });
     console.log("success");
   };
 
@@ -399,6 +430,28 @@ export const SisoProvider = (props) => {
     console.log("success");
   };
 
+  const accomplished = async (postId) => {
+    const theUserRef = doc(userInfodb, "users", userInfo.email);
+    const thePostRef = doc(
+      userInfodb,
+      "users",
+      userInfo.email,
+      "userMotives",
+      postId
+    );
+    const post = await getDoc(thePostRef);
+    const isAccomplished = post.data().isAccomplished;
+    const accomplishments = userInfo.accomplishments;
+    if (!isAccomplished) {
+      await updateDoc(theUserRef, {
+        accomplishments: accomplishments + 1,
+      });
+      await updateDoc(thePostRef, {
+        isAccomplished: true,
+      });
+    }
+  };
+
   return (
     <SisoContext.Provider
       value={{
@@ -423,6 +476,7 @@ export const SisoProvider = (props) => {
         deleteMotives,
         updateMotives,
         updateDeadline,
+        accomplished,
       }}
     >
       {props.children}

@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import "./Share.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import Congrats from "../Congrats/Congrats";
 const Share = ({ handlePage,handleCongrats }) => {
-  // const handleCongrats = () => {
-  //   setIsCongrats(false);
-  // }
   return (
     <div className="ushmain">
           <FontAwesomeIcon
