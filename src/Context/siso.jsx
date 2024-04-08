@@ -25,6 +25,7 @@ import {
   setDoc,
   updateDoc,
   onSnapshot,
+  deleteDoc
 } from "firebase/firestore";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
@@ -356,9 +357,45 @@ export const SisoProvider = (props) => {
   };
 
   //delete motives
-  const deleteMotives = async (userId, postId) => {
-    const thePostRef = doc(userInfodb, "users", userId, "userMotives", postId);
+  const deleteMotives = async (postId) => {
+    const thePostRef = doc(
+      userInfodb,
+      "users",
+      userInfo.email,
+      "userMotives",
+      postId
+    );
     await deleteDoc(thePostRef);
+    console.log("success");
+  };
+
+  //update motives
+  const updateMotives = async (postId, motive) => {
+    const thePostRef = doc(
+      userInfodb,
+      "users",
+      userInfo.email,
+      "userMotives",
+      postId
+    );
+    await updateDoc(thePostRef, {
+      Motive: motive,
+    });
+    console.log("success");
+  };
+
+  //update deadline
+  const updateDeadline = async (postId, deadline) => {
+    const thePostRef = doc(
+      userInfodb,
+      "users",
+      userInfo.email,
+      "userMotives",
+      postId
+    );
+    await updateDoc(thePostRef, {
+      deadline: deadline,
+    });
     console.log("success");
   };
 
@@ -384,6 +421,8 @@ export const SisoProvider = (props) => {
         allComments,
         clearComments,
         deleteMotives,
+        updateMotives,
+        updateDeadline,
       }}
     >
       {props.children}

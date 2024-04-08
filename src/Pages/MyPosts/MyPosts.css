@@ -13,7 +13,7 @@
   z-index: 3;
 }
 .pmpheading{
-    height: 22vh;
+    height: 10vh;
     width: 100%;
     display: flex;
 }
@@ -45,15 +45,13 @@
 .pmpallposts{
     display: flex;
     flex-direction: column;
-    margin-top: -12vh;
 }
 .pmpsinglepost{
     display: flex;
-    width: 100%;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-
+    height: 40vh;
     padding-bottom: 40px;
 }
 .pmpsinglepost:hover{

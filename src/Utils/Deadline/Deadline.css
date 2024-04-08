@@ -45,3 +45,19 @@ input[type="date"]:focus {
 input[type="date"]:focus:hover {
   background-color: #666;
 }
+.udldone{
+  margin-top: 3vh;
+  background-color: rgb(79, 206, 128); 
+  border: none;
+  color: black;
+  padding: 5px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+.udldone:hover{
+  background-color:rgba(50, 180, 100,0.9); 
+  color: black;
+}

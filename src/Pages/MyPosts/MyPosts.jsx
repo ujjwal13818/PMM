@@ -40,7 +40,8 @@ const MyPosts = () => {
   const [isShare , setShare] = useState(false);
   const [showHeading , setShowHeading] = useState(true);
   const [isCongrats, setIsCongrats] = useState(false);
-  // const []
+  const [postId , setPostId] = useState();
+  const [currentpost , setCurrentPost] = useState();
 
   const setIconFalse = () => {
     setHome(false);
@@ -152,9 +153,13 @@ const MyPosts = () => {
         {isShare && (
           <Share handlePage={handlePage} handleCongrats={handleCongrats} />
         )}
-        {isDeadline && <Deadline handlePage={handlePage} />}
-        {isDeleting && <DeletePost handlePage={handlePage} />}
-        {isEditing && <EditPost handlePage={handlePage} />}
+        {isDeadline && (
+          <Deadline handlePage={handlePage} currentPost={currentpost} />
+        )}
+        {isDeleting && <DeletePost handlePage={handlePage} postId={postId} />}
+        {isEditing && (
+          <EditPost handlePage={handlePage} currentPost={currentpost} />
+        )}
         {isCongrats && <Congrats handlePage={handlePage} />}
         {[...siso.allPosts].map((post, index) => (
           <div
@@ -177,9 +182,10 @@ const MyPosts = () => {
                     <button
                       className="pmpeditbtn"
                       onClick={() => {
+                        setCurrentPost(post);
                         setDeactivated(true);
-                        setEditing(true);
                         setShowHeading(false);
+                        setEditing(true);
                       }}
                     >
                       Edit motive
@@ -189,6 +195,7 @@ const MyPosts = () => {
                     <button
                       className="pmpdeletebtn"
                       onClick={() => {
+                        setPostId(post.postId);
                         setDeactivated(true);
                         setDeleting(true);
                         setShowHeading(false);
@@ -203,6 +210,7 @@ const MyPosts = () => {
                     <button
                       className="pmpdeadlinebtn"
                       onClick={() => {
+                        setCurrentPost(post);
                         setDeactivated(true);
                         setDeadline(true);
                         setShowHeading(false);

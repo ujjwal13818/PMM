@@ -2,9 +2,15 @@ import React, { useState } from 'react'
 import './Deadline.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-const Deadline = ({handlePage}) => {
-const[newDate , setNewDate] = useState();
-
+import { useSiso } from '../../Context/siso';
+const Deadline = ({ handlePage, currentPost }) => {
+  const [newDate, setNewDate] = useState();
+  const siso = useSiso();
+  const handleDeadline = async() => {
+    await siso.updateDeadline(currentPost.postId, newDate);
+    alert('Deadline updated, Kindly refresh the page to see changes');
+    handlePage();
+  }
   return (
     <div className="udlmain">
       <FontAwesomeIcon
@@ -15,14 +21,20 @@ const[newDate , setNewDate] = useState();
       />
       <div className="udldates">
         <div className="udlcurrent">
-          Current deadline: <b>29/09/2003</b>
+          Current deadline: <b>{currentPost.deadline}</b>
         </div>
-        <div className="udlnew">New deadline: 
-          <input type="date" className='udldeadline' onChange={(e) => setNewDate(e.target.value)}/>
+        <div className="udlnew">
+          New deadline:
+          <input
+            type="date"
+            className="udldeadline"
+            onChange={(e) => setNewDate(e.target.value)}
+          />
         </div>
+        <button className="udldone" onClick={() => {handleDeadline()}}>Done</button>
       </div>
     </div>
   );
-}
+};
 
 export default Deadline
