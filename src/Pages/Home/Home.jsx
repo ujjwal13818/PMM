@@ -22,46 +22,20 @@ const Home = () => {
   const { id } = useParams();
   const siso = useSiso();
   const iconRef = useRef();
-  const [isHome, setHome] = useState(false);
+  const [isHome, setHome] = useState(true);
   const [isPost, setPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
   const [posting, setPosting] = useState(false);
   const [isNotification, setNotification] = useState(false);
   const [isProfile, setProfile] = useState(false);
-  const [changeURL, setChangeURL] = useState(false);
-  const [destination, setDestination] = useState("/home");
+  const [destination, setDestination] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setChangeURL(false);
-    setHome(false);
-    setPost(false);
-    setSearch(false);
-    setNotification(false);
-    setProfile(false);
-  }, [changeURL]);
-  useEffect(() => {
-    if (destination === "/home") setHome(true);
-  }, [changeURL]);
-  useEffect(() => {
-    if (destination === "/myposts") setPost(true);
-  }, [changeURL]);
-  useEffect(() => {
-    if (destination === "/search") setSearch(true);
-  }, [changeURL]);
-  useEffect(() => {
-    if (destination === "/notification") setNotification(true);
-  }, [changeURL]);
-  useEffect(() => {
-    if (destination === "/profile") setProfile(true);
-  }, [changeURL]);
-  // const setIconFalse = () => {
-  //   setHome(false);
-  //   setPost(false);
-  //   setSearch(false);
-  //   setNotification(false);
-  //   setProfile(false);
-  // };
+    navigate(destination);
+  },[destination])
+
+
   const handleSignOut = () => {
     siso.sign_out();
     navigate("/");
@@ -83,9 +57,7 @@ const Home = () => {
           <div
             className={`${isHome ? "phnvicon active" : "phnvicon"}`}
             onClick={async () => {
-              setChangeURL(true);
               setDestination("/home");
-              setHome(true);
             }}
           >
             <FontAwesomeIcon icon={faHome} />
@@ -93,9 +65,7 @@ const Home = () => {
           <div
             className={`${isPost ? "phnvicon active" : "phnvicon"}`}
             onClick={async () => {
-              setChangeURL(true);
               setDestination("/myposts");
-              setPost(true);
             }}
           >
             <FontAwesomeIcon icon={faCloud} />
@@ -103,9 +73,7 @@ const Home = () => {
           <div
             className={`${isSearch ? "phnvicon active" : "phnvicon"}`}
             onClick={() => {
-              setChangeURL(true);
               setDestination("/search");
-              setSearch(true);
             }}
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -113,9 +81,7 @@ const Home = () => {
           <div
             className={`${isNotification ? "phnvicon active" : "phnvicon"}`}
             onClick={() => {
-              setChangeURL(true);
               setDestination("/notification");
-              setNotification(true);
             }}
           >
             <FontAwesomeIcon icon={faEnvelope} />
@@ -123,9 +89,7 @@ const Home = () => {
           <div
             className={`${isProfile ? "phnvicon active" : "phnvicon"}`}
             onClick={() => {
-              setChangeURL(true);
               setDestination("/profile");
-              setProfile(true);
             }}
           >
             <FontAwesomeIcon icon={faUser} />
