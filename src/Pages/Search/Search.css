@@ -1,0 +1,122 @@
+.psmaincontainer{
+    width: 100vw;
+    overflow-y: auto;
+    height: 100vh;
+    scrollbar-width: none;
+}
+.search {
+  width: 20vw;
+  height: 5vh;
+  background-color: black;
+  border-radius: 10vh;
+  border: 2px solid rgb(250, 247, 247);
+  outline: none;
+  font-size: large;
+  padding:.5vh 2vh;
+  letter-spacing: 1.5px;
+  font-family: Inter UI;
+  font-weight: 500;
+  color: white;
+  margin-left: 10vw;
+  position: fixed;
+}
+.search:focus {
+  box-shadow: 0 1px 4px rgb(241, 242, 243), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  width: 40vw;
+  transition: ease-in-out .2s;
+}
+.expandSearch{
+  width: 40vw;
+  transition: ease-in-out .2s;
+}
+.search::placeholder{
+    color: rgba(248, 244, 244, 0.61);
+}
+.pssearch{
+    width: 100vw;
+    z-index: 10;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.searchicon{
+    position: absolute;
+    top: -1vh;
+    z-index: 20;
+    left: 72.5vw;
+    color: rgb(248, 248, 248) ;
+    cursor: pointer;
+    display: none;
+}
+.showsearchicon{
+    display: block;
+}
+.pscontent{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    margin-top: 12vh;
+}
+.searchresults{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    height: 20%;
+    z-index: 2;
+}
+.searchresulttext{
+    font-size: 1.5rem;
+    text-decoration: underline;
+}
+.searchcard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    z-index: 2;
+}
+.pssuggestions{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2vh;
+    height: 80%;
+}
+.suggestedpeople{
+    font-size: 1.5rem;
+    width: 100%;
+    display: flex;
+    height: 5vh;
+}
+.suggestedtext{
+    /* margin-top: 15vh; */
+}
+.psleftline{
+    width: 20%;
+    height: 3vh;
+    border-bottom: 2px solid black;
+}
+.psrightline{
+    width: 60%;
+    height: 3vh;
+    border-bottom: 2px solid black;
+}
+.suggestions{
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+    overflow: auto;
+    scrollbar-width: none;
+}
+.singlesuggestion{
+    padding: 1vh 0vh;
+}

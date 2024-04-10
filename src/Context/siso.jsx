@@ -69,6 +69,7 @@ export const SisoProvider = (props) => {
   const [usersLiked, setUsersLiked] = useState([]);
   const [refreshFeed, setRefreshFeed] = useState(false);
   const [allComments, setAllComments] = useState([]);
+  const [allUsers , setAllUsers] = useState([]);
 
   //adding user name and email to his database
   const add_user = async ({ ...userData }) => {
@@ -110,10 +111,25 @@ export const SisoProvider = (props) => {
   };
 
   //geting user photo
-  const getUserPhoto = async (userId) => {
+  const getUserPhoto = async(userId) => {
     const docRef = doc(userInfodb, "users", userId);
     const theDocRef = await getDoc(docRef);
     return theDocRef.data().profilePic;
+  };
+
+  //getting no of posts
+  const getNoOfPosts = async(userId) => {
+    const docRef = doc(userInfodb, "users", userId);
+    const theDocRef = await getDoc(docRef);
+    const posts = theDocRef.data().posts;
+    return posts;
+  };
+
+  //getting no of accomplishments
+  const getNoOfAccomplishments = async (userId) => {
+    const docRef = doc(userInfodb, "users", userId);
+    const theDocRef = await getDoc(docRef);
+    return theDocRef.data().accomplishments;
   };
 
   //handling login and logout
@@ -246,6 +262,8 @@ export const SisoProvider = (props) => {
       });
     });
   };
+
+
   useEffect(() => {
     getAllPosts();
   }, [userInfo]);
@@ -269,6 +287,16 @@ export const SisoProvider = (props) => {
     };
     get_all_friends_posts();
   }, []);
+
+  //all users
+  useEffect(async() => {
+    const usersList = await getDocs(collection(userInfodb,"users"));
+    usersList.forEach((user) => {
+      setAllUsers((prev) => {
+        return [...prev, user.data()];
+      })
+    })
+  },[]);
 
   const likedUsers = async (userId, postId) => {
     // const thePostRef = doc(userInfodb, "users", userId, "userMotives", postId);
@@ -389,7 +417,7 @@ export const SisoProvider = (props) => {
       postId
     );
     const post = await getDoc(thePostRef);
-    const f = post.data().accomplished;
+    const f = post.data().isAccomplished;
     await deleteDoc(thePostRef);
     var posts = userInfo.posts;
     var accomplishments = userInfo.accomplishments;
@@ -452,6 +480,8 @@ export const SisoProvider = (props) => {
     }
   };
 
+  // const 
+
   return (
     <SisoContext.Provider
       value={{
@@ -477,6 +507,9 @@ export const SisoProvider = (props) => {
         updateMotives,
         updateDeadline,
         accomplished,
+        getNoOfPosts,
+        getNoOfAccomplishments,
+        allUsers,
       }}
     >
       {props.children}

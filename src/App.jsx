@@ -7,6 +7,7 @@ import MyPosts from './Pages/MyPosts/MyPosts';
 import PostForm from './Utils/PostForm/PostForm';
 import Navbar from './Components/Navbar/Navbar';
 import Congrats from './Utils/Congrats/Congrats';
+import Search from './Pages/Search/Search';
 
 
 
@@ -20,6 +21,7 @@ const App = () => {
       <Route path="/" element={<LP />}></Route>
       <Route path="/home" element={<Home />}></Route>
       <Route path="/myposts" element={<MyPosts />}></Route>
+      <Route path="/search" element={<Search />}></Route>
     </Routes>
   );
 }

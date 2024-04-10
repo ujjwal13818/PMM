@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faXmark,
   faCircleCheck,
+  faSmile,
+  faFaceGrinStars,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSiso } from "../../Context/siso";
 import { text } from "@fortawesome/fontawesome-svg-core";
@@ -13,7 +15,7 @@ import {
   faFacebook,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-
+{/* <FontAwesomeIcon icon={faFaceGrinStars} />; */}
 const Congrats = ({handlePage}) => {
   const siso = useSiso();
   return (
@@ -29,7 +31,7 @@ const Congrats = ({handlePage}) => {
             color: "white",
             fontSize: "1.5rem",
           }}
-            onClick={handlePage}
+          onClick={handlePage}
         />
         {siso.userInfo && (
           <div className="ucontext">
@@ -40,7 +42,7 @@ const Congrats = ({handlePage}) => {
         <div className="uconicon">
           <FontAwesomeIcon
             icon={faCircleCheck}
-            flip
+            beat
             style={{ color: "white", fontSize: "10rem" }}
           />
         </div>

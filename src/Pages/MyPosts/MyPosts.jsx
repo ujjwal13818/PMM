@@ -13,6 +13,7 @@ import {
   faPencil,
   faCalendarDays,
   faShare,
+  faSmile
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import Share from "../../Utils/Share/Share";

@@ -17,6 +17,8 @@ const PostCards = ({ bgcs, bgheader, post }) => {
   const [showLikedBy, setShowLikedBy] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showAddComments, setShowAddComments] = useState(false);
+  const [posts, setPosts] = useState();
+  const [accomplishments, setAccomplishments] = useState();
 
   const handleLikes = () => {
     if (!isLiked) {
@@ -29,6 +31,9 @@ const PostCards = ({ bgcs, bgheader, post }) => {
     setIsLiked(!isLiked);
   };
  
+siso.getNoOfPosts(post.emailId).then((result) => setPosts(result));
+console.log(posts);
+siso.getNoOfAccomplishments(post.emailId).then((result) => setAccomplishments(result));
 
   useEffect(() => {
     if (showLikedBy) {
@@ -67,7 +72,7 @@ const PostCards = ({ bgcs, bgheader, post }) => {
                   <div className="upctopnameandsubtitle">
                     <div className="upctopname">{post.fullName}</div>
                     <div className="upctopsubtitle">
-                      {siso.userInfo.posts} posts, {siso.userInfo.accomplishments} accomplishments
+                      {posts} posts, {accomplishments} accomplishments
                     </div>
                   </div>
                 </div>
@@ -77,7 +82,10 @@ const PostCards = ({ bgcs, bgheader, post }) => {
                       Deadline : {post.deadline}
                       {post.isAccomplished && (
                         <div className="isaccomplishedicon">
-                          <FontAwesomeIcon icon={faCircleCheck} style={{color: 'rgba(250,255,155)'}} />
+                          <FontAwesomeIcon
+                            icon={faCircleCheck}
+                            style={{ color: "rgba(250,255,155)" }}
+                          />
                         </div>
                       )}
                     </div>
@@ -139,7 +147,7 @@ const PostCards = ({ bgcs, bgheader, post }) => {
         </div>
         {showAddComments && (
           <div className="upAddComments">
-            <AddComments post={post}/>
+            <AddComments post={post} />
           </div>
         )}
         {showComments && (
