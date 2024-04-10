@@ -52,104 +52,112 @@ const Home = () => {
 
   return (
     <>
-      <div className={`phmc ${posting ? "phmc disable" : ""}`}>
-        <div className="phnv">
-          <div
-            className={`${isHome ? "phnvicon active" : "phnvicon"}`}
-            onClick={async () => {
-              setDestination("/home");
-            }}
-          >
-            <FontAwesomeIcon icon={faHome} />
-          </div>
-          <div
-            className={`${isPost ? "phnvicon active" : "phnvicon"}`}
-            onClick={async () => {
-              setDestination("/myposts");
-            }}
-          >
-            <FontAwesomeIcon icon={faCloud} />
-          </div>
-          <div
-            className={`${isSearch ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setDestination("/search");
-            }}
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </div>
-          <div
-            className={`${isNotification ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setDestination("/notification");
-            }}
-          >
-            <FontAwesomeIcon icon={faEnvelope} />
-          </div>
-          <div
-            className={`${isProfile ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setDestination("/profile");
-            }}
-          >
-            <FontAwesomeIcon icon={faUser} />
-          </div>
-          <div
-            className="phnvicon"
-            onClick={() => {
-              handleSignOut();
-            }}
-          >
-            <FontAwesomeIcon icon={faArrowRightFromBracket} />
-          </div>
-        </div>
-        <div className="phlogo">
-          <img src="/whiteLogo.png" alt="" srcSet="" className="phimg" />
-        </div>
-        <div className="phmc1">
-          <div className="phmc1peers">Your peers</div>
-          <div className="phpeerslist">
-            {[...Array(25)].map((_, index) => (
-              <Fcards key={index} />
-            ))}
-          </div>
-        </div>
-        <div className="phmc2">
-          {[...siso.allFriendsPosts].map((post, index) => (
-            <div className="phmc2postandcomments">
-              <PostCards
-                key={index}
-                bgcs={bgcs[index % bgcs.length]}
-                bgheader={bgheader[index % bgheader.length]}
-                post={post}
-              />
+      {siso.userInfo ? (
+        <div className="phmaincontainer">
+          <div className={`phmc ${posting ? "phmc disable" : ""}`}>
+            <div className="phnv">
+              <div
+                className={`${isHome ? "phnvicon active" : "phnvicon"}`}
+                onClick={async () => {
+                  setDestination("/home");
+                }}
+              >
+                <FontAwesomeIcon icon={faHome} />
+              </div>
+              <div
+                className={`${isPost ? "phnvicon active" : "phnvicon"}`}
+                onClick={async () => {
+                  setDestination("/myposts");
+                }}
+              >
+                <FontAwesomeIcon icon={faCloud} />
+              </div>
+              <div
+                className={`${isSearch ? "phnvicon active" : "phnvicon"}`}
+                onClick={() => {
+                  setDestination("/search");
+                }}
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </div>
+              <div
+                className={`${isNotification ? "phnvicon active" : "phnvicon"}`}
+                onClick={() => {
+                  setDestination("/notification");
+                }}
+              >
+                <FontAwesomeIcon icon={faEnvelope} />
+              </div>
+              <div
+                className={`${isProfile ? "phnvicon active" : "phnvicon"}`}
+                onClick={() => {
+                  setDestination("/profile");
+                }}
+              >
+                <FontAwesomeIcon icon={faUser} />
+              </div>
+              <div
+                className="phnvicon"
+                onClick={() => {
+                  handleSignOut();
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowRightFromBracket} />
+              </div>
             </div>
-          ))}
-        </div>
-        <div className="phmc3">
-          <div className="phprofile">
-            <div className="phprofilepic">
-              {siso.userInfo && (
-                <img
-                  className="phprofilepicimg"
-                  src={siso.userInfo.profilePic}
-                  alt="image"
-                  srcset=""
-                />
-              )}
+            <div className="phlogo">
+              <img src="/whiteLogo.png" alt="" srcSet="" className="phimg" />
             </div>
-            <div className="pheditbutton">
-              <button className="pheditbtn">Edit Profile</button>
+            <div className="phmc1">
+              <div className="phmc1peers">Your peers</div>
+              <div className="phpeerslist">
+                {[...Array(25)].map((_, index) => (
+                  <Fcards key={index} />
+                ))}
+              </div>
+            </div>
+            <div className="phmc2">
+              {[...siso.allFriendsPosts].map((post, index) => (
+                <div className="phmc2postandcomments">
+                  <PostCards
+                    key={index}
+                    bgcs={bgcs[index % bgcs.length]}
+                    bgheader={bgheader[index % bgheader.length]}
+                    post={post}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="phmc3">
+              <div className="phprofile">
+                <div className="phprofilepic">
+                  {siso.userInfo && (
+                    <img
+                      className="phprofilepicimg"
+                      src={siso.userInfo.profilePic}
+                      alt="image"
+                      srcset=""
+                    />
+                  )}
+                </div>
+                <div className="pheditbutton">
+                  <button className="pheditbtn">Edit Profile</button>
+                </div>
+              </div>
             </div>
           </div>
+          <div className="phmap" onClick={togglePostForm}>
+            <MakeAPost />
+          </div>
+          <div className={`phposting ${posting ? "phposting active2" : ""}`}>
+            <PostForm togglePostForm={togglePostForm} deadline={null} />
+          </div>
         </div>
-      </div>
-      <div className="phmap" onClick={togglePostForm}>
-        <MakeAPost />
-      </div>
-      <div className={`phposting ${posting ? "phposting active2" : ""}`}>
-        <PostForm togglePostForm={togglePostForm} deadline={null} />
-      </div>
+      ) : (
+        <div className="loading">
+          <h1>Loading</h1>
+        </div>
+      )}
     </>
   );
 };

@@ -77,6 +77,19 @@ button.uuaddbtn{
   background-color: rgb(108, 198, 108);
   margin-right: 1vw;
 }
+button.uurembtn{
+  width: 10vw;
+  height: 5vh;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgb(0, 0, 0);
+  background-color: rgba(231, 187, 67, 0.685);
+  margin-right: 1vw;
+}
 button.uublockbtn{
   width: 10vw;
   height: 5vh;
@@ -89,7 +102,7 @@ button.uublockbtn{
   color: black;
   background-color: rgb(244, 112, 112);
 }
-button.uuaddbtn:hover,button.uublockbtn:hover{
+button.uuaddbtn:hover,button.uublockbtn:hover,button.uurembtn:hover{
     transform: translateY(-2px);
     opacity: .8;
 }

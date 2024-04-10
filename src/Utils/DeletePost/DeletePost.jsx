@@ -8,7 +8,7 @@ const DeletePost = ({ handlePage, postId }) => {
   const handleDeletePost = async () => {
     await siso.deleteMotives(postId);
     handlePage();
-    alert('successfully deleted. Kindly refresh your page to see changes');
+    window.location.reload();
   };
   return (
     <>

@@ -155,84 +155,86 @@ const MyPosts = () => {
           <EditPost handlePage={handlePage} currentPost={currentpost} />
         )}
         {isCongrats && <Congrats handlePage={handlePage} />}
-        {[...siso.allPosts].map((post, index) => (
-          <div
-            className={`pmpallposts ${
-              deactivated ? "pmpallposts disable1" : ""
-            }`}
-          >
-            <div className="pmpsinglepost">
-              <div className="pmpsinglepostcard">
-                <PostCards
-                  key={index}
-                  bgcs={bgcs[index % bgcs.length]}
-                  bgheader={bgheader[index % bgheader.length]}
-                  post={post}
-                />
-              </div>
-              <div className="pmpbtns">
-                <div className="pmpbtns1">
-                  <div className="pmpeditbtn">
-                    <button
-                      className="pmpeditbtn"
-                      onClick={() => {
-                        setCurrentPost(post);
-                        setDeactivated(true);
-                        setShowHeading(false);
-                        setEditing(true);
-                      }}
-                    >
-                      Edit motive
-                    </button>
-                  </div>
-                  <div className="pmpdeletebtn">
-                    <button
-                      className="pmpdeletebtn"
-                      onClick={() => {
-                        setPostId(post.postId);
-                        setDeactivated(true);
-                        setDeleting(true);
-                        setShowHeading(false);
-                      }}
-                    >
-                      Delete motive
-                    </button>
-                  </div>
+        <div className="pmppostscontainer">
+          {[...siso.allPosts].map((post, index) => (
+            <div
+              className={`pmpallposts ${
+                deactivated ? "pmpallposts disable1" : ""
+              }`}
+            >
+              <div className="pmpsinglepost">
+                <div className="pmpsinglepostcard">
+                  <PostCards
+                    key={index}
+                    bgcs={bgcs[index % bgcs.length]}
+                    bgheader={bgheader[index % bgheader.length]}
+                    post={post}
+                  />
                 </div>
-                <div className="pmpbtns2">
-                  <div className="pmpdeadlinebtn">
-                    <button
-                      className="pmpdeadlinebtn"
+                <div className="pmpbtns">
+                  <div className="pmpbtns1">
+                    <div className="pmpeditbtn">
+                      <button
+                        className="pmpeditbtn"
+                        onClick={() => {
+                          setCurrentPost(post);
+                          setDeactivated(true);
+                          setShowHeading(false);
+                          setEditing(true);
+                        }}
+                      >
+                        Edit motive
+                      </button>
+                    </div>
+                    <div className="pmpdeletebtn">
+                      <button
+                        className="pmpdeletebtn"
+                        onClick={() => {
+                          setPostId(post.postId);
+                          setDeactivated(true);
+                          setDeleting(true);
+                          setShowHeading(false);
+                        }}
+                      >
+                        Delete motive
+                      </button>
+                    </div>
+                  </div>
+                  <div className="pmpbtns2">
+                    <div className="pmpdeadlinebtn">
+                      <button
+                        className="pmpdeadlinebtn"
+                        onClick={() => {
+                          setCurrentPost(post);
+                          setDeactivated(true);
+                          setDeadline(true);
+                          setShowHeading(false);
+                        }}
+                      >
+                        Add or extend deadline
+                        <FontAwesomeIcon icon={faCalendarDays} />
+                      </button>
+                    </div>
+                    <div
+                      className="pmpsharebtn"
                       onClick={() => {
                         setCurrentPost(post);
                         setDeactivated(true);
-                        setDeadline(true);
+                        setShare(true);
                         setShowHeading(false);
                       }}
                     >
-                      Add or extend deadline
-                      <FontAwesomeIcon icon={faCalendarDays} />
-                    </button>
-                  </div>
-                  <div
-                    className="pmpsharebtn"
-                    onClick={() => {
-                      setCurrentPost(post);
-                      setDeactivated(true);
-                      setShare(true);
-                      setShowHeading(false);
-                    }}
-                  >
-                    <button className="pmpsharebtn">
-                      Accomplished and share
-                      <FontAwesomeIcon icon={faShare} />
-                    </button>
+                      <button className="pmpsharebtn">
+                        Accomplished and share
+                        <FontAwesomeIcon icon={faShare} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );

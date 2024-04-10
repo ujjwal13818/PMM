@@ -8,8 +8,8 @@ const Deadline = ({ handlePage, currentPost }) => {
   const siso = useSiso();
   const handleDeadline = async() => {
     await siso.updateDeadline(currentPost.postId, newDate);
-    alert('Deadline updated, Kindly refresh the page to see changes');
     handlePage();
+    window.location.reload();
   }
   return (
     <div className="udlmain">

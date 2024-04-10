@@ -71,6 +71,7 @@ export const SisoProvider = (props) => {
   const [allComments, setAllComments] = useState([]);
   const [allUsers , setAllUsers] = useState([]);
 
+
   //adding user name and email to his database
   const add_user = async ({ ...userData }) => {
     try {
@@ -480,7 +481,27 @@ export const SisoProvider = (props) => {
     }
   };
 
-  // const 
+  //adding peer
+  const addPeer = async(peerId) => {
+    const theUserRef = doc(userInfodb, "users" , userInfo.email);
+    const theUserData = await getDoc(theUserRef);
+    const peers = theUserData.data().peers;
+    if(peers.includes(peerId))return;
+    await updateDoc(theUserRef, {
+      peers: [...peers, peerId],
+    });
+  }
+
+  //remove peer
+  const removePeer = async(peerId) => {
+    const theUserRef = doc(userInfodb, "users" , userInfo.email);
+    const theUserData = await getDoc(theUserRef);
+    const peers = theUserData.data().peers;
+    if(!peers.includes(peerId))return;
+    await updateDoc(theUserRef, {
+      peers: peers.filter((peer) => peer!== peerId),
+    });
+  }
 
   return (
     <SisoContext.Provider
@@ -510,6 +531,8 @@ export const SisoProvider = (props) => {
         getNoOfPosts,
         getNoOfAccomplishments,
         allUsers,
+        addPeer,
+        removePeer,
       }}
     >
       {props.children}

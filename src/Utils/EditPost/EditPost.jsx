@@ -9,8 +9,8 @@ const EditPost = ({handlePage , currentPost}) => {
     const siso = useSiso();
     const handleUpdate = async() => {
       await siso.updateMotives(currentPost.postId , motive);
-      alert("Successfully updated. Kindly refresh the page to see changes.");
       handlePage();
+      window.location.reload();
     }
   return (
     <>

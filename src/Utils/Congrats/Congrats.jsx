@@ -15,7 +15,7 @@ import {
   faFacebook,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-{/* <FontAwesomeIcon icon={faFaceGrinStars} />; */}
+
 const Congrats = ({handlePage}) => {
   const siso = useSiso();
   return (
@@ -31,7 +31,10 @@ const Congrats = ({handlePage}) => {
             color: "white",
             fontSize: "1.5rem",
           }}
-          onClick={handlePage}
+          onClick={() => {
+            handlePage;
+            window.location.reload();
+          }}
         />
         {siso.userInfo && (
           <div className="ucontext">
@@ -42,7 +45,7 @@ const Congrats = ({handlePage}) => {
         <div className="uconicon">
           <FontAwesomeIcon
             icon={faCircleCheck}
-            beat
+            flip
             style={{ color: "white", fontSize: "10rem" }}
           />
         </div>

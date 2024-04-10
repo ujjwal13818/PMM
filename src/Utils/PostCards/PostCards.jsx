@@ -32,7 +32,6 @@ const PostCards = ({ bgcs, bgheader, post }) => {
   };
  
 siso.getNoOfPosts(post.emailId).then((result) => setPosts(result));
-console.log(posts);
 siso.getNoOfAccomplishments(post.emailId).then((result) => setAccomplishments(result));
 
   useEffect(() => {

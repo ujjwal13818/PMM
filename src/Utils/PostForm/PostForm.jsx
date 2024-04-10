@@ -12,6 +12,7 @@ const PostForm = ({ togglePostForm, deadline }) => {
   const handlePost = async () => {
     if (motive.length > 0) {
       await siso.postMotive(motive, date);
+      window.location.reload();
     }
     setMotive("");
     togglePostForm();

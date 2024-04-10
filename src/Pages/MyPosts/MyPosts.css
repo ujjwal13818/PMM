@@ -45,10 +45,13 @@
      text-decoration: underline;
      z-index: 5;
 }
+.pmppostscontainer{
+  margin-top: 10vh;
+}
 .pmpallposts{
     display: flex;
     flex-direction: column;
-    margin-top: 10vh;
+    margin-top: 0vh;
 }
 .pmpsinglepost{
     display: flex;
