@@ -1,0 +1,172 @@
+.ppmaincontainer{
+    height: 100vh;
+    width: 100vw;;
+    background: linear-gradient(90deg, #080808, #030303d2);
+    overflow: auto;
+    scrollbar-width: none;
+    font-family: "Space Grotesk", sans-serif;
+}
+.ppcontent{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    margin-top: -6vh;
+    position: fixed;
+}
+/* left section */
+
+.ppleftsection{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 45%;
+    margin-top: -6vh;
+    justify-content: center;
+    align-items: center;
+}
+.ppprofilepic{
+    height: 30vh;
+    width: 30vh;
+    background-color: rgb(219, 213, 213);
+    border-radius: 50%;
+    margin-top: -15vh;
+}
+.ppchangeprofilepic{
+
+}
+button.ppchangeprofilepicbtn{
+  background-image: linear-gradient(to right, #060706e6, #141313b7);
+  border: 1px solid #ffffff62;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10vh;
+  width: 15vw;
+  margin-top: 3vh;
+  outline: none;
+}
+button.ppchangeprofilepicbtn:hover{
+    opacity: .8;
+}
+
+/* right section */
+
+.pprightsection{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 55%;
+    padding-top: 8vh;
+    color: rgba(255, 255, 255, 0.906);
+}
+.ppfullname{
+    font-size: 3rem;
+    height: 10vh;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.ppediticon{
+font-size: 1.5rem;
+color: rgba(253, 92, 5, 0.984);
+margin-left: 1vw;
+cursor: pointer;
+}
+.ppjoinedonandemail{
+    height: 12vh;
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+.ppjoinedon{
+    margin-top: -1vh;
+}
+.ppemail{
+    margin-top: 1vh;
+}
+.nooffriends{
+    height: 6vh;
+    width: 100%;
+    font-size: 1.5rem ;
+    display: flex;
+    align-items: center;
+}
+.nooffriendsmarkedsupportive{
+    height: 6vh;
+    width: 100%;
+    font-size: 1.5rem ;
+    display: flex;
+    align-items: center;
+}
+.ppsupportive{
+    height: 6vh;
+    width: 100%;
+    font-size: 1.5rem ;
+    display: flex;
+    align-items: center;
+}
+.markedsupportivebyuser{
+    height: 6vh;
+    width: 100%;
+    font-size: 1.5rem ;
+    display: flex;
+    align-items: center;
+}
+.pppostaccomplishment{
+    height: 10vh;
+    width: 80%;
+    font-size: 1.5rem ;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.ppposts{
+
+}
+.ppaccomplishment{
+
+}
+.pppassword{
+    height: 6vh;
+    width: 100%;
+    font-size: 1.5rem ;
+    display: flex;
+    align-items: center;
+}
+.blockListanddeleteaccount{
+    height: 8vh;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.blocklist{
+    text-decoration: none;
+    font-size: larger;
+    color: red;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.deleteaccountbtn{
+  background-image: linear-gradient(to right, #f80000e6, #a60000);
+  border: 1px solid #ffffff62;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10vh;
+  width: 15vw;
+  margin-top: 3vh;
+  outline: none;
+}
+.deleteaccountbtn:hover{
+    opacity: .7;
+}
