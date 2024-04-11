@@ -1,34 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Search.css";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHome,
-  faHouse,
-  faCloud,
-  faMagnifyingGlass,
-  faEnvelope,
-  faUser,
-  faArrowRightFromBracket,
-  faPencil,
-  faCalendarDays,
-  faShare,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../../Components/Navbar/Navbar";
 import { useSiso } from "../../Context/siso";
 import Usercard from "../../Utils/Usercard/Usercard";
+import Mainnav from "../../Components/Mainnav/Mainnav";
 
 const Search = () => {
-  const [destination, setDestination] = useState();
-  const [isHome, setHome] = useState(false);
-  const [isPost, setPost] = useState(false);
-  const [isSearch, setSearch] = useState(true);
-  const [isNotification, setNotification] = useState(false);
-  const [isProfile, setProfile] = useState(false);
   const [searchValue, setSearchValue] = useState(null);
   const [searchedUser, setSearchedUser] = useState([]);
-  const navigate = useNavigate();
   const siso = useSiso();
 
   //searching
@@ -43,68 +26,11 @@ const Search = () => {
     setSearchedUser(searchFunction(siso.allUsers));
   }, [searchValue]);
 
-  useEffect(() => {
-    navigate(destination);
-  }, [destination]);
-  const handleSignOut = () => {
-    siso.sign_out();
-    navigate("/");
-  };
-
   return (
     <>
       {siso.allUsers ? (
         <div className="psmaincontainer">
-          <div className="phnv">
-            <div
-              className={`${isHome ? "phnvicon active" : "phnvicon"}`}
-              onClick={() => {
-                setDestination("/home");
-              }}
-            >
-              <FontAwesomeIcon icon={faHome} />
-            </div>
-            <div
-              className={`${isPost ? "phnvicon active" : "phnvicon"}`}
-              onClick={() => {
-                setDestination("/myposts");
-              }}
-            >
-              <FontAwesomeIcon icon={faCloud} />
-            </div>
-            <div
-              className={`${isSearch ? "phnvicon active" : "phnvicon"}`}
-              onClick={() => {
-                setDestination("/search");
-              }}
-            >
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </div>
-            <div
-              className={`${isNotification ? "phnvicon active" : "phnvicon"}`}
-              onClick={() => {
-                setDestination("/notification");
-              }}
-            >
-              <FontAwesomeIcon icon={faEnvelope} />
-            </div>
-            <div
-              className={`${isProfile ? "phnvicon active" : "phnvicon"}`}
-              onClick={() => {
-                setDestination("/profile");
-              }}
-            >
-              <FontAwesomeIcon icon={faUser} />
-            </div>
-            <div
-              className="phnvicon"
-              onClick={() => {
-                handleSignOut();
-              }}
-            >
-              <FontAwesomeIcon icon={faArrowRightFromBracket} />
-            </div>
-          </div>
+          <Mainnav initialDestination={"/search"}/>
           <div className="pmpheading">
             <div className="pmpnav">
               <Navbar />

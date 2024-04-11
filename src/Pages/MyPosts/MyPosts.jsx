@@ -3,19 +3,9 @@ import "./MyPosts.css";
 import { useSiso } from "../../Context/siso";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faHome,
-  faHouse,
-  faCloud,
-  faMagnifyingGlass,
-  faEnvelope,
-  faUser,
-  faArrowRightFromBracket,
-  faPencil,
   faCalendarDays,
   faShare,
-  faSmile
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 import Share from "../../Utils/Share/Share";
 import Deadline from "../../Utils/Deadline/Deadline";
 import DeletePost from "../../Utils/DeletePost/DeletePost";
@@ -23,14 +13,10 @@ import EditPost from "../../Utils/EditPost/EditPost";
 import PostCards from "../../Utils/PostCards/PostCards";
 import Navbar from "../../Components/Navbar/Navbar";
 import Congrats from "../../Utils/Congrats/Congrats";
+import Mainnav from "../../Components/Mainnav/Mainnav";
 
 const MyPosts = () => {
   const siso = useSiso();
-  const [isHome, setHome] = useState(false);
-  const [isPost, setPost] = useState(true);
-  const [isSearch, setSearch] = useState(false);
-  const [isNotification, setNotification] = useState(false);
-  const [isProfile, setProfile] = useState(false);
   const [deactivated, setDeactivated] = useState(false);
   const [isEditing, setEditing] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
@@ -39,20 +25,8 @@ const MyPosts = () => {
   const [showHeading, setShowHeading] = useState(true);
   const [isCongrats, setIsCongrats] = useState(false);
   const [postId, setPostId] = useState();
-  const [destination, setDestination] = useState();
   const [currentpost, setCurrentPost] = useState();
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate(destination);
-  }, [destination]);
-
-
-  const handleSignOut = () => {
-    siso.sign_out();
-    navigate("/");
-  };
   const bgcs = [
     "linear-gradient(135deg, #F8B500, #FFFFFF)",
     "linear-gradient(135deg, #2193b0, #6dd5ed)",
@@ -73,62 +47,10 @@ const MyPosts = () => {
     setIsCongrats(true);
   };
 
-   useEffect(() => {
-     // Your code here
-   }, []);
   return (
     <>
       <div className="pmpmainContainer" >
-        <div className="phnv">
-          <div
-            className={`${isHome ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setDestination("/home");
-            }}
-          >
-            <FontAwesomeIcon icon={faHome} />
-          </div>
-          <div
-            className={`${isPost ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setDestination("/myposts");
-            }}
-          >
-            <FontAwesomeIcon icon={faCloud} />
-          </div>
-          <div
-            className={`${isSearch ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setDestination("/search");
-            }}
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </div>
-          <div
-            className={`${isNotification ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setDestination("/notification");
-            }}
-          >
-            <FontAwesomeIcon icon={faEnvelope} />
-          </div>
-          <div
-            className={`${isProfile ? "phnvicon active" : "phnvicon"}`}
-            onClick={() => {
-              setDestination("/profile");
-            }}
-          >
-            <FontAwesomeIcon icon={faUser} />
-          </div>
-          <div
-            className="phnvicon"
-            onClick={() => {
-              handleSignOut();
-            }}
-          >
-            <FontAwesomeIcon icon={faArrowRightFromBracket} />
-          </div>
-        </div>
+        <Mainnav initialDestination={"/myposts"}/>
         <div className="pmpheading">
           <div className="pmpnav">
             <Navbar />
@@ -160,7 +82,7 @@ const MyPosts = () => {
         )}
         {isCongrats && <Congrats handlePage={handlePage} />}
         <div className="pmppostscontainer">
-          {siso.allPosts && [...siso.allPosts].map((post, index) => (
+          { [...siso.allPosts].map((post, index) => (
             <div
               className={`pmpallposts ${
                 deactivated ? "pmpallposts disable1" : ""

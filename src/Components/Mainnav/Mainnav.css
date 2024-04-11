@@ -1,0 +1,44 @@
+.phnv {
+  z-index: 2;
+  position: fixed;
+  right: 0;
+  width: 50px;
+  height: 350px;
+  background-color: rgba(0, 0, 0, 0.205);
+  top: 27%;
+  text-align: center;
+  padding-top: 2%;
+}
+.phnvicon {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(163, 125, 125);
+  margin-left: 10%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  background-color: black;
+}
+.phnvicon:hover {
+  cursor: pointer;
+  background-color: rgb(238, 250, 5);
+  color: black;
+}
+.active {
+  background-color: red;
+  animation: spin 0.5s;
+}
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}.active:hover {
+  background-color: red;
+  color: white;
+}

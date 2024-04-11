@@ -1,45 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Home.css";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSiso } from "../../Context/siso";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHome,
-  faHouse,
-  faCloud,
-  faMagnifyingGlass,
-  faEnvelope,
-  faUser,
-  faArrowRightFromBracket,
-  faPencil,
-} from "@fortawesome/free-solid-svg-icons";
 import Fcards from "../../Utils/Fcards/Fcards";
 import PostCards from "../../Utils/PostCards/PostCards";
 import MakeAPost from "../../Utils/MakeAPost/MakeAPost";
 import PostForm from "../../Utils/PostForm/PostForm";
+import Mainnav from "../../Components/Mainnav/Mainnav";
 
 const Home = () => {
-  const { id } = useParams();
   const siso = useSiso();
-  const iconRef = useRef();
-  const [isHome, setHome] = useState(true);
-  const [isPost, setPost] = useState(false);
-  const [isSearch, setSearch] = useState(false);
   const [posting, setPosting] = useState(false);
-  const [isNotification, setNotification] = useState(false);
-  const [isProfile, setProfile] = useState(false);
-  const [destination, setDestination] = useState();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-     navigate(destination);
-  },[destination])
-
-
-  const handleSignOut = () => {
-    siso.sign_out();
-    navigate("/");
-  };
   const bgcs = [
     "linear-gradient(135deg, #F8B500, #FFFFFF)",
     "linear-gradient(135deg, #2193b0, #6dd5ed)",
@@ -55,65 +26,23 @@ const Home = () => {
       {siso.userInfo ? (
         <div className="phmaincontainer">
           <div className={`phmc ${posting ? "phmc disable" : ""}`}>
-            <div className="phnv">
-              <div
-                className={`${isHome ? "phnvicon active" : "phnvicon"}`}
-                onClick={ () => {
-                  setDestination("/home");
-                }}
-              >
-                <FontAwesomeIcon icon={faHome} />
-              </div>
-              <div
-                className={`${isPost ? "phnvicon active" : "phnvicon"}`}
-                onClick={ () => {
-                  setDestination("/myposts");
-                }}
-              >
-                <FontAwesomeIcon icon={faCloud} />
-              </div>
-              <div
-                className={`${isSearch ? "phnvicon active" : "phnvicon"}`}
-                onClick={() => {
-                  setDestination("/search");
-                }}
-              >
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </div>
-              <div
-                className={`${isNotification ? "phnvicon active" : "phnvicon"}`}
-                onClick={() => {
-                  setDestination("/notification");
-                }}
-              >
-                <FontAwesomeIcon icon={faEnvelope} />
-              </div>
-              <div
-                className={`${isProfile ? "phnvicon active" : "phnvicon"}`}
-                onClick={() => {
-                  setDestination("/profile");
-                }}
-              >
-                <FontAwesomeIcon icon={faUser} />
-              </div>
-              <div
-                className="phnvicon"
-                onClick={() => {
-                  handleSignOut();
-                }}
-              >
-                <FontAwesomeIcon icon={faArrowRightFromBracket} />
-              </div>
-            </div>
+            <Mainnav initialDestination={"/home"}  />
             <div className="phlogo">
               <img src="/whiteLogo.png" alt="" srcSet="" className="phimg" />
             </div>
             <div className="phmc1">
               <div className="phmc1peers">Your peers</div>
               <div className="phpeerslist">
-                {siso.userInfo && [...siso.userInfo.peers].map((peer,index) => (
+                {siso.userInfo.peers.length > 0? (
+                  [...siso.userInfo.peers].map((peer,index) => (
                   <Fcards peer = {peer} key={index}/>
-                ))}
+                ))
+                ):
+                (
+                  <div className="findFriends">
+                    <h5>Go to search section to find your peers.</h5>
+                  </div>
+                )}
               </div>
             </div>
             <div className="phmc2">
