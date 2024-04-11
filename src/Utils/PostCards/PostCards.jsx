@@ -65,7 +65,7 @@ siso.getNoOfAccomplishments(post.emailId).then((result) => setAccomplishments(re
                       className="upctopprofilepicimg"
                       src={post.profilePic}
                       alt="img"
-                      srcset=""
+                      srcSet=""
                     />
                   </div>
                   <div className="upctopnameandsubtitle">

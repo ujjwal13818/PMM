@@ -14,12 +14,7 @@
     cursor: pointer;
     color: blue;
 }
-.ucprofilepic{
-    width: 4.5vw;
-    height: 4.5vw;
-    background-color: white;
-    border-radius: 50%;
-}
+
 .ucprofilename{
     width: 10vw;
     display: flex;

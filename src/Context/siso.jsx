@@ -118,6 +118,13 @@ export const SisoProvider = (props) => {
     return theDocRef.data().profilePic;
   };
 
+  //getting user details of requested user
+  const getUserDetails = async(userId) => {
+    const docRef = doc(userInfodb, "users", userId);
+    const theDocRef = await getDoc(docRef);
+    return theDocRef.data();
+  }
+
   //getting no of posts
   const getNoOfPosts = async(userId) => {
     const docRef = doc(userInfodb, "users", userId);
@@ -135,12 +142,12 @@ export const SisoProvider = (props) => {
 
   //handling login and logout
   useEffect(() => {
-    onAuthStateChanged(appAuth, (user) => {
+    onAuthStateChanged(appAuth, async(user) => {
       if (user) {
-        get_user_info(user.email);
+        await get_user_info(user.email);
         setLoggedIn(!loggedIn);
       } else {
-        console.log("logged out");
+        // console.log("logged out");
       }
     });
   }, []);
@@ -254,10 +261,10 @@ export const SisoProvider = (props) => {
 
   //users own posts
   const getAllPosts = async () => {
-    const allPosts = await getDocs(
+    const allPosts = userInfo && await getDocs(
       collection(userInfodb, "users", userInfo.email, "userMotives")
     );
-    allPosts.forEach((doc) => {
+    allPosts && allPosts.forEach((doc) => {
       setAllPosts((prevPosts) => {
         return [...prevPosts, doc.data()];
       });
@@ -533,6 +540,7 @@ export const SisoProvider = (props) => {
         allUsers,
         addPeer,
         removePeer,
+        getUserDetails,
       }}
     >
       {props.children}

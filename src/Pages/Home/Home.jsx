@@ -32,7 +32,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(destination);
+     navigate(destination);
   },[destination])
 
 
@@ -58,7 +58,7 @@ const Home = () => {
             <div className="phnv">
               <div
                 className={`${isHome ? "phnvicon active" : "phnvicon"}`}
-                onClick={async () => {
+                onClick={ () => {
                   setDestination("/home");
                 }}
               >
@@ -66,7 +66,7 @@ const Home = () => {
               </div>
               <div
                 className={`${isPost ? "phnvicon active" : "phnvicon"}`}
-                onClick={async () => {
+                onClick={ () => {
                   setDestination("/myposts");
                 }}
               >
@@ -111,16 +111,15 @@ const Home = () => {
             <div className="phmc1">
               <div className="phmc1peers">Your peers</div>
               <div className="phpeerslist">
-                {[...Array(25)].map((_, index) => (
-                  <Fcards key={index} />
+                {siso.userInfo && [...siso.userInfo.peers].map((peer,index) => (
+                  <Fcards peer = {peer} key={index}/>
                 ))}
               </div>
             </div>
             <div className="phmc2">
               {[...siso.allFriendsPosts].map((post, index) => (
-                <div className="phmc2postandcomments">
+                <div className="phmc2postandcomments" key={index}>
                   <PostCards
-                    key={index}
                     bgcs={bgcs[index % bgcs.length]}
                     bgheader={bgheader[index % bgheader.length]}
                     post={post}
@@ -136,7 +135,7 @@ const Home = () => {
                       className="phprofilepicimg"
                       src={siso.userInfo.profilePic}
                       alt="image"
-                      srcset=""
+                      srcSet=""
                     />
                   )}
                 </div>

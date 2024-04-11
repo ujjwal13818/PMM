@@ -72,9 +72,13 @@ const MyPosts = () => {
     if (!currentpost.accomplished) await siso.accomplished(currentpost.postId);
     setIsCongrats(true);
   };
+
+   useEffect(() => {
+     // Your code here
+   }, []);
   return (
     <>
-      <div className="pmpmainContainer">
+      <div className="pmpmainContainer" >
         <div className="phnv">
           <div
             className={`${isHome ? "phnvicon active" : "phnvicon"}`}
@@ -156,11 +160,12 @@ const MyPosts = () => {
         )}
         {isCongrats && <Congrats handlePage={handlePage} />}
         <div className="pmppostscontainer">
-          {[...siso.allPosts].map((post, index) => (
+          {siso.allPosts && [...siso.allPosts].map((post, index) => (
             <div
               className={`pmpallposts ${
                 deactivated ? "pmpallposts disable1" : ""
               }`}
+              key={index}
             >
               <div className="pmpsinglepost">
                 <div className="pmpsinglepostcard">

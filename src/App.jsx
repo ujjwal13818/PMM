@@ -8,10 +8,7 @@ import PostForm from './Utils/PostForm/PostForm';
 import Navbar from './Components/Navbar/Navbar';
 import Congrats from './Utils/Congrats/Congrats';
 import Search from './Pages/Search/Search';
-
-
-
-
+import Profile from './Pages/Profile/Profile';
 
 const App = () => {
 const siso = useSiso();
@@ -22,6 +19,7 @@ const siso = useSiso();
           <Route path="/home" element={<Home />}></Route>
           <Route path="/myposts" element={<MyPosts />}></Route>
           <Route path="/search" element={<Search />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
         </Routes>
       
   );
