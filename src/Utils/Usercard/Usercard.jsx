@@ -32,7 +32,14 @@ const Usercard = ({ user }) => {
             <div className="uuheading">
               <div className="uunameandprofilepicbtns">
                 <div className="uunameandprofilepic">
-                  <div className="uuprofilepic"></div>
+                  <div className="uuprofilepic">
+                    <img
+                      className="uuprofilepicimg"
+                      src={user.profilePic}
+                      alt=""
+                      srcSet=""
+                    />
+                  </div>
                   <div className="uuname">
                     {user && user.first_name + " " + user.last_name}
                   </div>
@@ -71,7 +78,7 @@ const Usercard = ({ user }) => {
               {user && (
                 <div className="uusubtitles">
                   {user.posts} Posts, {user.accomplishments} Accomplishments,
-                  Supportive: {user.supportive}
+                  Supportive: {user.supportive}%
                 </div>
               )}
             </div>

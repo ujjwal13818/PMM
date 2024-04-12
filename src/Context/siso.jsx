@@ -70,6 +70,7 @@ export const SisoProvider = (props) => {
   const [refreshFeed, setRefreshFeed] = useState(false);
   const [allComments, setAllComments] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
+  // const [peerInfo, setPeerInfo] = useState();
 
   //adding user name and email to his database
   const add_user = async ({ ...userData }) => {
@@ -84,6 +85,7 @@ export const SisoProvider = (props) => {
       await uploadBytesResumable(storageRef, userData.profilePic).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
           await setDoc(userDocRef, {
+            uniqueUserName: userData.email.split('@')[0],
             first_name: userData.firstName,
             last_name: userData.lastName,
             email: userData.email,
@@ -185,6 +187,13 @@ export const SisoProvider = (props) => {
     return theDocRef.data().accomplishments;
   };
 
+  //getting supportive percentage
+  const getSupportivePercentage = async (userId) => {
+    const docRef = doc(userInfodb, "users", userId);
+    const theDocRef = await getDoc(docRef);
+    return theDocRef.data().supportive;
+  };
+
   //handling login and logout
   useEffect(() => {
     onAuthStateChanged(appAuth, async (user) => {
@@ -264,6 +273,26 @@ export const SisoProvider = (props) => {
       alert("Internal server error");
     }
   };
+
+  //*****************peer details is feed here********************** */
+    const get_peer_info = async (emailId) => {
+      const userDocRef = doc(userInfodb, "users", emailId);
+      const theDocRef = await getDoc(userDocRef);
+      return ({
+        profileUrl: theDocRef.data().uniqueUserName,
+        first_name: theDocRef.data().first_name,
+        last_name: theDocRef.data().last_name,
+        email: theDocRef.data().email,
+        profilePic: theDocRef.data().profilePic,
+        posts: theDocRef.data().posts,
+        accomplishments: theDocRef.data().accomplishments,
+        peers: theDocRef.data().peers,
+        joinedOn: theDocRef.data().joinedOn,
+        supportive: theDocRef.data().supportive,
+        supportiveMarkedBy: theDocRef.data().supportiveMarkedBy,
+        supportiveMarkedTo: theDocRef.data().supportiveMarkedTo,
+      });
+    };
 
   const sign_out = () => {
     signOut(appAuth).then(() => {
@@ -580,15 +609,19 @@ export const SisoProvider = (props) => {
     var newUserSupportive = theUserData.data().supportive;
     var newPeerSupportive = peerDoc.data().supportive;
     if (userArrayBy.includes(peerId) || userArrayBy.includes(peerId)) {
-      if(userArrayBy.includes(peerId)) newUserSupportive =
-        ((userArrayBy.length - 1) / (theUserData.data().peers.length - 1)) *
-        100;
+      if (userArrayBy.includes(peerId))
+        newUserSupportive =
+          ((userArrayBy.length - 1) / (theUserData.data().peers.length - 1)) *
+          100;
       await updateDoc(theUserRef, {
         supportiveMarkedBy: userArrayBy.filter((x) => x !== peerId),
         supportiveMarkedTo: userArrayTo.filter((x) => x !== peerId),
       });
     }
-    if (peerArrayBy.includes(userInfo.email) || peerArrayTo.includes(userInfo.email)) {
+    if (
+      peerArrayBy.includes(userInfo.email) ||
+      peerArrayTo.includes(userInfo.email)
+    ) {
       if (peerArrayBy.includes(userInfo.email))
         newPeerSupportive =
           ((peerArrayBy.length - 1) / (peerDoc.data().peers.length - 1)) * 100;
@@ -635,12 +668,14 @@ export const SisoProvider = (props) => {
         accomplished,
         getNoOfPosts,
         getNoOfAccomplishments,
+        getSupportivePercentage,
         allUsers,
         addPeer,
         removePeer,
         getUserDetails,
         handleSupportiveMarking,
         handleSupportedUnmarking,
+        get_peer_info,
       }}
     >
       {props.children}

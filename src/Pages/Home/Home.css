@@ -57,13 +57,10 @@
   margin-top: 3vh;
 }
 .phmc2 {
-  width: 65vw;
   background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   overflow-y: auto;
   font-size: larger;
   scrollbar-width: none;
-  /* padding: 10px 5vh 0vh 5vh; */
-  text-align: justify;
   display: flex;
   flex-direction: column;
   align-items: center;

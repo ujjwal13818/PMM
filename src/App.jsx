@@ -9,6 +9,7 @@ import Navbar from './Components/Navbar/Navbar';
 import Congrats from './Utils/Congrats/Congrats';
 import Search from './Pages/Search/Search';
 import Profile from './Pages/Profile/Profile';
+import ShowList from './Utils/ShowList/ShowList';
 
 const App = () => {
 const siso = useSiso();

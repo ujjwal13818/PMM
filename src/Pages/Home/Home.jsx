@@ -6,6 +6,8 @@ import PostCards from "../../Utils/PostCards/PostCards";
 import MakeAPost from "../../Utils/MakeAPost/MakeAPost";
 import PostForm from "../../Utils/PostForm/PostForm";
 import Mainnav from "../../Components/Mainnav/Mainnav";
+import { Link } from "react-router-dom";
+
 
 const Home = () => {
   const siso = useSiso();
@@ -21,24 +23,29 @@ const Home = () => {
     setPosting((posting) => !posting);
   };
 
+  const reloadfn = () => {
+    setTimeout(() => {
+      window.location.reload();
+    },100)
+  }
+
   return (
     <>
       {siso.userInfo ? (
         <div className="phmaincontainer">
           <div className={`phmc ${posting ? "phmc disable" : ""}`}>
-            <Mainnav initialDestination={"/home"}  />
+            <Mainnav initialDestination={"/home"} />
             <div className="phlogo">
               <img src="/whiteLogo.png" alt="" srcSet="" className="phimg" />
             </div>
             <div className="phmc1">
               <div className="phmc1peers">Your peers</div>
               <div className="phpeerslist">
-                {siso.userInfo.peers.length > 0? (
-                  [...siso.userInfo.peers].map((peer,index) => (
-                  <Fcards peer = {peer} key={index}/>
-                ))
-                ):
-                (
+                {siso.userInfo.peers.length > 0 ? (
+                  [...siso.userInfo.peers].map((peer, index) => (
+                    <Fcards peer={peer} key={index} />
+                  ))
+                ) : (
                   <div className="findFriends">
                     <h5>Go to search section to find your peers.</h5>
                   </div>
@@ -68,9 +75,13 @@ const Home = () => {
                     />
                   )}
                 </div>
-                <div className="pheditbutton">
-                  <button className="pheditbtn">Edit Profile</button>
-                </div>
+                <Link to={"/profile"} style={{textDecoration: "none"}} onClick={() => {
+                  reloadfn();
+                }}>
+                  <div className="pheditbutton">
+                    <button className="pheditbtn">Edit Profile</button>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

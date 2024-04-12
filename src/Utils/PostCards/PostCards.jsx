@@ -19,6 +19,7 @@ const PostCards = ({ bgcs, bgheader, post }) => {
   const [showAddComments, setShowAddComments] = useState(false);
   const [posts, setPosts] = useState();
   const [accomplishments, setAccomplishments] = useState();
+  const [supportive , setSupportive] = useState();
 
   const handleLikes = () => {
     if (!isLiked) {
@@ -33,6 +34,9 @@ const PostCards = ({ bgcs, bgheader, post }) => {
  
 siso.getNoOfPosts(post.emailId).then((result) => setPosts(result));
 siso.getNoOfAccomplishments(post.emailId).then((result) => setAccomplishments(result));
+siso
+  .getSupportivePercentage(post.emailId)
+  .then((result) => setSupportive(result));
 
   useEffect(() => {
     if (showLikedBy) {
@@ -71,7 +75,7 @@ siso.getNoOfAccomplishments(post.emailId).then((result) => setAccomplishments(re
                   <div className="upctopnameandsubtitle">
                     <div className="upctopname">{post.fullName}</div>
                     <div className="upctopsubtitle">
-                      {posts} posts, {accomplishments} accomplishments
+                      {posts} posts, {accomplishments} accomplishments, supportive: {supportive}%
                     </div>
                   </div>
                 </div>
