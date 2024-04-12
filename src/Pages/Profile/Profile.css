@@ -29,16 +29,22 @@
 .ppprofilepic{
     height: 30vh;
     width: 30vh;
-    background-color: rgb(219, 213, 213);
+    /* background-color: rgb(219, 213, 213); */
     border-radius: 50%;
     margin-top: -15vh;
+}
+.ppimg{
+    width: 100%;
+    height: 96%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 .ppchangeprofilepic{
 
 }
 button.ppchangeprofilepicbtn{
-  background-image: linear-gradient(to right, #060706e6, #141313b7);
-  border: 1px solid #ffffff62;
+  background-image: linear-gradient(to right, #13c413e6, #141313b7);
+  border: 1px solid #00000062;
   color: #ffffff;
   padding: 10px 20px;
   font-size: 16px;

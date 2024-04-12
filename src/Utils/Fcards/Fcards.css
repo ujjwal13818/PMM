@@ -12,7 +12,6 @@
     border-bottom: 2px solid white;
     border-top: 2px solid white;
     cursor: pointer;
-    color: blue;
 }
 
 .ucprofilename{
@@ -21,4 +20,25 @@
     justify-content: center;
     height: 10vh;
     align-items: center;
+}
+.nameandmarksupportive{
+    display: flex;
+    flex-direction: column;
+    height: 5vh;
+    align-items: center;
+    justify-content: center;
+}
+.marksupportive{
+    font-size: .9rem;
+    color: rgb(0, 8, 255);
+    text-decoration: underline;
+    cursor: pointer;             
+    font-weight: bold;
+}
+.markunsupportive{
+    font-size: .9rem;
+    color: rgb(255, 25, 0);
+    text-decoration: underline;
+    cursor: pointer;             
+    font-weight: bold;
 }
