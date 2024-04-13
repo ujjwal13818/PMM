@@ -1,0 +1,81 @@
+.upcfsi{
+    height: 30vh;
+    width: 40vw;
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(104, 92, 91);
+}
+.upcfsiclose{
+    position: absolute;
+    left: 38vw;
+    top: 1.5vh;
+}
+.upcfsiclose:hover{
+    cursor: pointer;
+}
+.upcfsimain{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.deletephoto{
+    width: 13vw;
+    height: 5vh;
+    background: linear-gradient(to Right , #f80000e6, #a60000);
+    border-radius: 10vh;
+    border: none;
+    color: white;
+    font-size: 16px;
+
+}
+.deletephoto:hover{
+    cursor: pointer;
+    opacity: .9;
+}
+.updatediv{
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    align-items: center;
+    justify-content: center;
+}
+.updatephotoinput {
+    display: inline-block;
+    width: 16vw;
+    padding: 10px 10px;
+    font-size: 16px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.5s ease-in-out;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); 
+    border-radius: 5px;
+    margin-bottom: 1vh;
+}
+
+.updatephotoinput:hover {
+    background: linear-gradient(to right, #feb47b, #ff7e5f); 
+}
+.updatephotobtn{
+    margin-top: 1vh;
+    width: 10vw;
+    padding: 4px 10px;
+    font-size: 1.1rem;
+    background: linear-gradient(to right, #56ab2f, #a8e063); /* Greenish gradient colors */
+}
+.updatephotobtn:hover{
+    cursor: pointer;
+    opacity: .9;
+}

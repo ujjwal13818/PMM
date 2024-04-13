@@ -61,17 +61,21 @@ const Profile = () => {
           <div className={`ppcontent ${disable ? "ppcontent disable" : ""}`}>
             <div className="ppleftsection">
               <div className="ppprofilepic">
-                <img
-                  src={siso.userInfo && siso.userInfo.profilePic}
-                  alt=""
-                  srcSet=""
-                  className="ppimg"
-                />
+                {siso.userInfo && siso.userInfo.profilePic && (
+                  <img
+                    src={siso.userInfo && siso.userInfo.profilePic}
+                    alt=""
+                    srcSet=""
+                    className="ppimg"
+                  />
+                )}
               </div>
               <div className="ppchangeprofilepic">
-                <button className="ppchangeprofilepicbtn">
-                  Change/Remove photo
-                </button>
+                <Link to={"http://localhost:5173/updateprofilepic"}>
+                  <button className="ppchangeprofilepicbtn">
+                    Change/Remove photo
+                  </button>
+                </Link>
               </div>
             </div>
             <div className="pprightsection">

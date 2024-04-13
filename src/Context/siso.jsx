@@ -34,6 +34,7 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 
 const firebaseConfig = {
@@ -106,7 +107,73 @@ export const SisoProvider = (props) => {
     }
   };
 
+  //updating profile photo
 
+  const removeProfilePic = async () => {
+    const userDocRef = doc(userInfodb, "users", userInfo.email);
+    await updateDoc(userDocRef, {
+      profilePic: "",
+    });
+    allPosts.forEach(async (post) => {
+      const thePostRef = doc(
+        userInfodb,
+        "users",
+        userInfo.email,
+        "userMotives",
+        post.postId
+      );
+      await updateDoc(thePostRef, {
+        profilePic: "",
+      });
+    });
+    if (userInfo.profilePic) {
+      const imageRef = ref(storage, userInfo.profilePic);
+      await deleteObject(imageRef);
+    }
+    setUserInfo({
+      ...userInfo,
+      profilePic: "",
+    });
+    console.log(userInfo);
+    alert("successfully deleted, please go back");
+  };
+
+  const updateProfilePic = async (newPhoto) => {
+    if(newPhoto === null)return;
+    const time = new Date().getTime();
+    const storageRef = ref(storage, `${userInfo.email + time}`);
+    const userDocRef = doc(userInfodb, "users", userInfo.email);
+    if (userInfo.profilePic.length > 0) {
+      const imageRef = ref(storage, userInfo.profilePic);
+      await deleteObject(imageRef);
+    }
+    await uploadBytesResumable(storageRef, newPhoto)
+      .then(() => {
+        getDownloadURL(storageRef).then(async (downloadUrl) => {
+          await updateDoc(userDocRef, {
+            profilePic: downloadUrl,
+          });
+          setUserInfo({
+            ...userInfo,
+            profilePic: downloadUrl,
+          });
+          allPosts.forEach(async (post) => {
+            const thePostRef = doc(
+              userInfodb,
+              "users",
+              userInfo.email,
+              "userMotives",
+              post.postId
+            );
+            await updateDoc(thePostRef, {
+              profilePic: downloadUrl,
+            });
+          });
+          alert("successfully updated, please go back");
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
   //handling supportive marking
   const handleSupportiveMarking = async (peerId) => {
@@ -165,14 +232,14 @@ export const SisoProvider = (props) => {
   };
 
   //unblocking user
-  const unBlockUser = async(peerId) => {
+  const unBlockUser = async (peerId) => {
     if (peerId === userInfo.email) return;
     const userDocRef = doc(userInfodb, "users", userInfo.email);
     const userDoc = await getDoc(userDocRef);
-    await updateDoc(userDocRef , {
-      BlockedUsers: userDoc.data().BlockedUsers.filter((x) => x!== peerId),
-    })
-  }
+    await updateDoc(userDocRef, {
+      BlockedUsers: userDoc.data().BlockedUsers.filter((x) => x !== peerId),
+    });
+  };
 
   //data is stored at firestore;
   const getData = async ({ ...data }) => {
@@ -303,7 +370,7 @@ export const SisoProvider = (props) => {
 
   const updatePass = async (oldPass, newPass) => {
     const credentials = EmailAuthProvider.credential(userInfo.email, oldPass);
-    reauthenticateWithCredential(appAuth.currentUser , credentials)
+    reauthenticateWithCredential(appAuth.currentUser, credentials)
       .then(async () => {
         await updatePassword(appAuth.currentUser, newPass);
         alert("Password updated successfully");
@@ -311,16 +378,14 @@ export const SisoProvider = (props) => {
       .catch((err) => alert("Wrong old password"));
   };
 
-
-  const updateName = async(first_name , last_name) => {
+  const updateName = async (first_name, last_name) => {
     const userDocRef = doc(userInfodb, "users", userInfo.email);
-    const userDoc = await getDoc(userDocRef);
     await updateDoc(userDocRef, {
       first_name: first_name,
       last_name: last_name,
     });
     alert("successfully updated");
-  }
+  };
 
   //*****************peer details is feed here********************** */
   const get_peer_info = async (emailId) => {
@@ -426,9 +491,9 @@ export const SisoProvider = (props) => {
   useEffect(async () => {
     const usersList = await getDocs(collection(userInfodb, "users"));
     usersList.forEach((user) => {
-        setAllUsers((prev) => {
-          return [...prev, user.data()];
-        });
+      setAllUsers((prev) => {
+        return [...prev, user.data()];
+      });
     });
   }, []);
 
@@ -728,6 +793,8 @@ export const SisoProvider = (props) => {
         unBlockUser,
         updatePass,
         updateName,
+        removeProfilePic,
+        updateProfilePic,
       }}
     >
       {props.children}

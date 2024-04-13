@@ -4,14 +4,11 @@ import { Routes,Route, Navigate } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import { useSiso } from './Context/siso';
 import MyPosts from './Pages/MyPosts/MyPosts';
-import PostForm from './Utils/PostForm/PostForm';
-import Navbar from './Components/Navbar/Navbar';
-import Congrats from './Utils/Congrats/Congrats';
 import Search from './Pages/Search/Search';
 import Profile from './Pages/Profile/Profile';
-import ShowList from './Utils/ShowList/ShowList';
 import UpdatePassword from './Utils/UpdatePassword/UpdatePassword';
 import UpdateName from './Utils/UpdateName/UpdateName';
+import UpdateProfilePic from './Utils/UpdateProfilePic/UpdateProfilePic';
 
 const App = () => {
 const siso = useSiso();
@@ -25,6 +22,7 @@ const siso = useSiso();
       <Route path="/profile" element={<Profile />}></Route>
       <Route path="/updatepassword" element={<UpdatePassword />}></Route>
       <Route path="/updatename" element={<UpdateName />}></Route>
+      <Route path="/updateprofilepic" element={<UpdateProfilePic />}></Route>
     </Routes>
   );
 }
