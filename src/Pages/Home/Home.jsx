@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Home.css";
 import { useSiso } from "../../Context/siso";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Fcards from "../../Utils/Fcards/Fcards";
 import PostCards from "../../Utils/PostCards/PostCards";
 import MakeAPost from "../../Utils/MakeAPost/MakeAPost";
@@ -12,6 +14,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const siso = useSiso();
   const [posting, setPosting] = useState(false);
+  const [spinner, setSpinner] = useState(false);
 
   const bgcs = [
     "linear-gradient(135deg, #F8B500, #FFFFFF)",
@@ -75,9 +78,13 @@ const Home = () => {
                     />
                   )}
                 </div>
-                <Link to={"/profile"} style={{textDecoration: "none"}} onClick={() => {
-                  reloadfn();
-                }}>
+                <Link
+                  to={"/profile"}
+                  style={{ textDecoration: "none" }}
+                  onClick={() => {
+                    reloadfn();
+                  }}
+                >
                   <div className="pheditbutton">
                     <button className="pheditbtn">Edit Profile</button>
                   </div>
@@ -94,7 +101,7 @@ const Home = () => {
         </div>
       ) : (
         <div className="loading">
-          <h1>Loading</h1>
+          <FontAwesomeIcon icon={faSpinner} spinPulse />
         </div>
       )}
     </>

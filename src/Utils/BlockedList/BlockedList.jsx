@@ -1,19 +1,15 @@
 import React from "react";
-import "./ShowList.css";
+import "./BlockedList.css";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useSiso } from "../../Context/siso";
 
-const ShowList = ({ handlePage, sentStatus }) => {
+const BlockedList = ({ handlePage }) => {
   const siso = useSiso();
-  const [status, setStatus] = useState(sentStatus);
-  const [list, setList] = useState(
-    status === "by"
-      ? siso.userInfo && siso.userInfo.supportiveMarkedBy
-      : siso.userInfo && siso.userInfo.supportiveMarkedTo
-  );
+  const [list, setList] = useState(siso.userInfo && siso.userInfo.BlockedUsers);
   const [allPeersData, setAllPeersData] = useState([]);
+  const [spinner, setSpinner] = useState(false);
 
   useState(() => {
     {
@@ -22,7 +18,16 @@ const ShowList = ({ handlePage, sentStatus }) => {
         setAllPeersData((prev) => [...prev, detailsObj]);
       });
     }
-  }, []);
+  }, [list]);
+
+  const handleUnblocking = async (peerId) => {
+    setSpinner(true);
+    await siso.unBlockUser(peerId);
+    setList(siso.userInfo.BlockedUsers);
+    setSpinner(false);
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="uslmaincontainer">
@@ -39,11 +44,7 @@ const ShowList = ({ handlePage, sentStatus }) => {
             }}
             onClick={handlePage}
           />
-          <div className="uslheading">
-            {status === "by"
-              ? "Peers who marked you supportive:"
-              : "Peers whom you marked supportive to:"}
-          </div>
+          <div className="uslheading">Blocked users:</div>
           <div className="uslalllist">
             {allPeersData && [
               ...allPeersData.map((data) => (
@@ -60,6 +61,22 @@ const ShowList = ({ handlePage, sentStatus }) => {
                       {data.first_name + " " + data.last_name}
                     </div>
                   </div>
+                  <div className="uslunblock">
+                    <button className="uslunblockbtn">
+                      {spinner ? (
+                        <FontAwesomeIcon icon={faSpinner} spinPulse />
+                      ) : (
+                        <div
+                          className="unblocktext"
+                          onClick={() => {
+                            handleUnblocking(data.email);
+                          }}
+                        >
+                          Unblock
+                        </div>
+                      )}
+                    </button>
+                  </div>
                 </div>
               )),
             ]}
@@ -70,4 +87,4 @@ const ShowList = ({ handlePage, sentStatus }) => {
   );
 };
 
-export default ShowList;
+export default BlockedList;

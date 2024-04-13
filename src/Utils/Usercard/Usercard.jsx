@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./Usercard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useSiso } from "../../Context/siso";
 
 const Usercard = ({ user }) => {
   const siso = useSiso();
-  const [added, setAdded] = useState(user && siso.userInfo.peers.includes(user.email));
+  const [added, setAdded] = useState(
+    user && siso.userInfo.peers.includes(user.email)
+  );
+  const [spinner, setSpinner] = useState(false);
+  // console.log(user);
 
   const handleAddPeers = async (peerId) => {
     if (peerId === siso.userInfo.email) return;
-    if(siso.userInfo.peers.includes(peerId))return;
+    if (siso.userInfo.peers.includes(peerId)) return;
+    setSpinner(true);
     await siso.addPeer(peerId);
     setAdded(true);
     window.location.reload();
@@ -18,11 +23,25 @@ const Usercard = ({ user }) => {
 
   const handleRemovePeers = async (peerId) => {
     if (peerId === siso.userInfo.email) return;
-    if(!siso.userInfo.peers.includes(peerId))return;
+    if (!siso.userInfo.peers.includes(peerId)) return;
+    setSpinner(true);
     await siso.removePeer(peerId);
     setAdded(false);
     window.location.reload();
   };
+
+  const handleBlock = async(peerId) => {
+    if(peerId == siso.userInfo.emailId)return;
+    setSpinner(true);
+    await siso.handleBlocking(peerId);
+    window.location.reload();
+  }
+
+  if(siso.userInfo && user && siso.userInfo.BlockedUsers.includes(user.email)){
+    return (
+      null
+    )
+  }
 
   return (
     <>
@@ -51,27 +70,50 @@ const Usercard = ({ user }) => {
                         className="uuaddbtn"
                         onClick={() => handleAddPeers(user.email)}
                       >
-                        Add
-                        <FontAwesomeIcon
-                          icon={faPlus}
-                          style={{ marginLeft: ".5vh" }}
-                        />
+                        {spinner ? (
+                          <FontAwesomeIcon icon={faSpinner} spinPulse />
+                        ) : (
+                          <div className="addandplus">
+                            Add
+                            <FontAwesomeIcon
+                              icon={faPlus}
+                              style={{ marginLeft: ".5vh" }}
+                            />
+                          </div>
+                        )}
                       </button>
                     ) : (
                       <button
                         className="uurembtn"
                         onClick={() => handleRemovePeers(user.email)}
                       >
-                        Remove
-                        <FontAwesomeIcon
-                          icon={faMinus}
-                          style={{ marginLeft: ".5vh" }}
-                        />
+                        {spinner ? (
+                          <FontAwesomeIcon icon={faSpinner} spinPulse />
+                        ) : (
+                          <div className="removeandminus">
+                            Remove
+                            <FontAwesomeIcon
+                              icon={faMinus}
+                              style={{ marginLeft: ".5vh" }}
+                            />
+                          </div>
+                        )}
                       </button>
                     )}
                   </div>
                   <div className="uublock">
-                    <button className="uublockbtn">Block</button>
+                    <button
+                      className="uublockbtn"
+                      onClick={() => handleBlock(user.email)}
+                    >
+                      {spinner ? (
+                        <FontAwesomeIcon icon={faSpinner} spinPulse />
+                      ) : (
+                        <div className="blocktext">
+                          Block
+                        </div>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>

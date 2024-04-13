@@ -1,31 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import './Profile.css'
-import Mainnav from '../../Components/Mainnav/Mainnav';
-import Navbar from '../../Components/Navbar/Navbar';
-import { useSiso } from '../../Context/siso';
+import React, { useEffect, useState } from "react";
+import "./Profile.css";
+import Mainnav from "../../Components/Mainnav/Mainnav";
+import Navbar from "../../Components/Navbar/Navbar";
+import { useSiso } from "../../Context/siso";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import ShowList from '../../Utils/ShowList/ShowList';
+import ShowList from "../../Utils/ShowList/ShowList";
+import BlockedList from "../../Utils/BlockedList/BlockedList";
 
 const Profile = () => {
   const siso = useSiso();
-  const [showList , setShowList] = useState(false);
-  const [disable , setDisable] = useState(false);
-  const [sentStatus , setSentStatus] = useState();
-
+  const [showList, setShowList] = useState(false);
+  const [disable, setDisable] = useState(false);
+  const [sentStatus, setSentStatus] = useState();
+  const [blocklist, setBlocklist] = useState(false);
 
   useEffect(() => {
-  if(sentStatus){
-    setDisable(true);
-    setShowList(true);
-  }
-  },[sentStatus])
+    if (sentStatus) {
+      setDisable(true);
+      setShowList(true);
+    }
+  }, [sentStatus]);
 
   const handlePage = () => {
     setShowList(false);
     setDisable(false);
+    setBlocklist(false);
     setSentStatus();
-  }
+  };
+
+  useEffect(() => {
+    if (blocklist) {
+      setDisable(true);
+      setShowList(true);
+    }
+  }, [blocklist]);
+
+
 
   return (
     <>
@@ -151,17 +162,31 @@ const Profile = () => {
                 </div>
               </div>
               <div className="blockListanddeleteaccount">
-                <div className="blocklist">Blocked users</div>
+                <div className="blocklist" onClick={() => setBlocklist(true)}>
+                  Blocked users
+                </div>
                 <button className="deleteaccountbtn">Delete account</button>
               </div>
             </div>
           </div>
         ) : (
-          <ShowList handlePage={handlePage} sentStatus = {sentStatus}  />
+          <div className="list">
+            {!blocklist ? (
+              <div className="showsupportive">
+                <ShowList handlePage={handlePage} sentStatus={sentStatus} />
+              </div>
+            ) : (
+              <div className="showblocking">
+                <BlockedList
+                  handlePage={handlePage}
+                />
+              </div>
+            )}
+          </div>
         )}
       </div>
     </>
   );
-}
+};
 
-export default Profile
+export default Profile;

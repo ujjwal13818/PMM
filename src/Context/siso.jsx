@@ -85,7 +85,7 @@ export const SisoProvider = (props) => {
       await uploadBytesResumable(storageRef, userData.profilePic).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
           await setDoc(userDocRef, {
-            uniqueUserName: userData.email.split('@')[0],
+            uniqueUserName: userData.email.split("@")[0],
             first_name: userData.firstName,
             last_name: userData.lastName,
             email: userData.email,
@@ -97,6 +97,7 @@ export const SisoProvider = (props) => {
             supportive: 0,
             supportiveMarkedBy: [],
             supportiveMarkedTo: [],
+            BlockedUsers: [],
           });
         });
       });
@@ -149,6 +150,28 @@ export const SisoProvider = (props) => {
       supportiveMarkedTo: userArray.filter((x) => x !== peerId),
     });
   };
+
+  //blocking user
+
+  const handleBlocking = async (peerId) => {
+    if (peerId === userInfo.email) return;
+    const userDocRef = doc(userInfodb, "users", userInfo.email);
+    const userDoc = await getDoc(userDocRef);
+    await removePeer(peerId);
+    await updateDoc(userDocRef, {
+      BlockedUsers: [...userDoc.data().BlockedUsers, peerId],
+    });
+  };
+
+  //unblocking user
+  const unBlockUser = async(peerId) => {
+    if (peerId === userInfo.email) return;
+    const userDocRef = doc(userInfodb, "users", userInfo.email);
+    const userDoc = await getDoc(userDocRef);
+    await updateDoc(userDocRef , {
+      BlockedUsers: userDoc.data().BlockedUsers.filter((x) => x!== peerId),
+    })
+  }
 
   //data is stored at firestore;
   const getData = async ({ ...data }) => {
@@ -267,6 +290,7 @@ export const SisoProvider = (props) => {
           supportive: doc.data().supportive,
           supportiveMarkedBy: doc.data().supportiveMarkedBy,
           supportiveMarkedTo: doc.data().supportiveMarkedTo,
+          BlockedUsers: doc.data().BlockedUsers,
         }));
       });
     } else {
@@ -275,24 +299,24 @@ export const SisoProvider = (props) => {
   };
 
   //*****************peer details is feed here********************** */
-    const get_peer_info = async (emailId) => {
-      const userDocRef = doc(userInfodb, "users", emailId);
-      const theDocRef = await getDoc(userDocRef);
-      return ({
-        profileUrl: theDocRef.data().uniqueUserName,
-        first_name: theDocRef.data().first_name,
-        last_name: theDocRef.data().last_name,
-        email: theDocRef.data().email,
-        profilePic: theDocRef.data().profilePic,
-        posts: theDocRef.data().posts,
-        accomplishments: theDocRef.data().accomplishments,
-        peers: theDocRef.data().peers,
-        joinedOn: theDocRef.data().joinedOn,
-        supportive: theDocRef.data().supportive,
-        supportiveMarkedBy: theDocRef.data().supportiveMarkedBy,
-        supportiveMarkedTo: theDocRef.data().supportiveMarkedTo,
-      });
+  const get_peer_info = async (emailId) => {
+    const userDocRef = doc(userInfodb, "users", emailId);
+    const theDocRef = await getDoc(userDocRef);
+    return {
+      profileUrl: theDocRef.data().uniqueUserName,
+      first_name: theDocRef.data().first_name,
+      last_name: theDocRef.data().last_name,
+      email: theDocRef.data().email,
+      profilePic: theDocRef.data().profilePic,
+      posts: theDocRef.data().posts,
+      accomplishments: theDocRef.data().accomplishments,
+      peers: theDocRef.data().peers,
+      joinedOn: theDocRef.data().joinedOn,
+      supportive: theDocRef.data().supportive,
+      supportiveMarkedBy: theDocRef.data().supportiveMarkedBy,
+      supportiveMarkedTo: theDocRef.data().supportiveMarkedTo,
     };
+  };
 
   const sign_out = () => {
     signOut(appAuth).then(() => {
@@ -378,9 +402,9 @@ export const SisoProvider = (props) => {
   useEffect(async () => {
     const usersList = await getDocs(collection(userInfodb, "users"));
     usersList.forEach((user) => {
-      setAllUsers((prev) => {
-        return [...prev, user.data()];
-      });
+        setAllUsers((prev) => {
+          return [...prev, user.data()];
+        });
     });
   }, []);
 
@@ -676,6 +700,8 @@ export const SisoProvider = (props) => {
         handleSupportiveMarking,
         handleSupportedUnmarking,
         get_peer_info,
+        handleBlocking,
+        unBlockUser,
       }}
     >
       {props.children}

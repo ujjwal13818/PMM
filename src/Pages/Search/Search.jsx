@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Search.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSearch,
+  faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../../Components/Navbar/Navbar";
 import { useSiso } from "../../Context/siso";
@@ -89,7 +89,7 @@ const Search = () => {
               </div>
               <div className="suggestions">
                 {[...siso.allUsers].map((user, index) => (
-                  <div className="singlesuggestion">
+                  <div className="singlesuggestion" key={index}>
                     <Usercard user={user} />
                   </div>
                 ))}
