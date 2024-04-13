@@ -10,19 +10,22 @@ import Congrats from './Utils/Congrats/Congrats';
 import Search from './Pages/Search/Search';
 import Profile from './Pages/Profile/Profile';
 import ShowList from './Utils/ShowList/ShowList';
+import UpdatePassword from './Utils/UpdatePassword/UpdatePassword';
+import UpdateName from './Utils/UpdateName/UpdateName';
 
 const App = () => {
 const siso = useSiso();
 
   return (
-        <Routes>
-          <Route path="/" element={<LP />}></Route>
-          <Route path="/home" element={<Home />}></Route>
-          <Route path="/myposts" element={<MyPosts />}></Route>
-          <Route path="/search" element={<Search />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-        </Routes>
-      
+    <Routes>
+      <Route path="/" element={<LP />}></Route>
+      <Route path="/home" element={<Home />}></Route>
+      <Route path="/myposts" element={<MyPosts />}></Route>
+      <Route path="/search" element={<Search />}></Route>
+      <Route path="/profile" element={<Profile />}></Route>
+      <Route path="/updatepassword" element={<UpdatePassword />}></Route>
+      <Route path="/updatename" element={<UpdateName />}></Route>
+    </Routes>
   );
 }
 

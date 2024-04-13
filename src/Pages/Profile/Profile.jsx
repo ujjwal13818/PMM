@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import ShowList from "../../Utils/ShowList/ShowList";
 import BlockedList from "../../Utils/BlockedList/BlockedList";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const siso = useSiso();
@@ -78,7 +79,12 @@ const Profile = () => {
                 {siso.userInfo &&
                   siso.userInfo.first_name + " " + siso.userInfo.last_name}
                 <div className="ppediticon">
-                  <FontAwesomeIcon icon={faPen} />
+                  <Link
+                    to="http://localhost:5173/updatename"
+                    style={{ color: "rgba(255,100,0)" }}
+                  >
+                    <FontAwesomeIcon icon={faPen} />
+                  </Link>
                 </div>
               </div>
               <div className="ppjoinedonandemail">
@@ -158,7 +164,12 @@ const Profile = () => {
               <div className="pppassword">
                 Password: <b style={{ marginLeft: ".5vw" }}> *******</b>
                 <div className="ppediticon">
-                  <FontAwesomeIcon icon={faPen} />
+                  <Link
+                    to="http://localhost:5173/updatepassword"
+                    style={{ color: "rgba(255,100,0)" }}
+                  >
+                    <FontAwesomeIcon icon={faPen} />
+                  </Link>
                 </div>
               </div>
               <div className="blockListanddeleteaccount">
@@ -177,9 +188,7 @@ const Profile = () => {
               </div>
             ) : (
               <div className="showblocking">
-                <BlockedList
-                  handlePage={handlePage}
-                />
+                <BlockedList handlePage={handlePage} />
               </div>
             )}
           </div>

@@ -5,13 +5,14 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup,
   onAuthStateChanged,
   setPersistence,
   browserSessionPersistence,
   sendEmailVerification,
   signOut,
-  updateProfile,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -67,10 +68,8 @@ export const SisoProvider = (props) => {
   const navigate = useNavigate();
   const [allFriendsPosts, setAllFriendsPosts] = useState([]); // all friends post of the user;
   const [usersLiked, setUsersLiked] = useState([]);
-  const [refreshFeed, setRefreshFeed] = useState(false);
   const [allComments, setAllComments] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
-  // const [peerInfo, setPeerInfo] = useState();
 
   //adding user name and email to his database
   const add_user = async ({ ...userData }) => {
@@ -106,6 +105,8 @@ export const SisoProvider = (props) => {
       console.log(error);
     }
   };
+
+
 
   //handling supportive marking
   const handleSupportiveMarking = async (peerId) => {
@@ -297,6 +298,29 @@ export const SisoProvider = (props) => {
       alert("Internal server error");
     }
   };
+
+  //updating password;
+
+  const updatePass = async (oldPass, newPass) => {
+    const credentials = EmailAuthProvider.credential(userInfo.email, oldPass);
+    reauthenticateWithCredential(appAuth.currentUser , credentials)
+      .then(async () => {
+        await updatePassword(appAuth.currentUser, newPass);
+        alert("Password updated successfully");
+      })
+      .catch((err) => alert("Wrong old password"));
+  };
+
+
+  const updateName = async(first_name , last_name) => {
+    const userDocRef = doc(userInfodb, "users", userInfo.email);
+    const userDoc = await getDoc(userDocRef);
+    await updateDoc(userDocRef, {
+      first_name: first_name,
+      last_name: last_name,
+    });
+    alert("successfully updated");
+  }
 
   //*****************peer details is feed here********************** */
   const get_peer_info = async (emailId) => {
@@ -702,6 +726,8 @@ export const SisoProvider = (props) => {
         get_peer_info,
         handleBlocking,
         unBlockUser,
+        updatePass,
+        updateName,
       }}
     >
       {props.children}
