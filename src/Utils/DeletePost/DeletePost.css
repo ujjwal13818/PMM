@@ -15,6 +15,7 @@
     font-size: 1.2rem;
     color: rgb(246, 3, 3);
     margin-top: -3vh;
+    padding: 0 20px;
 }
 .udpwarningbtns{
     display: flex;
@@ -39,7 +40,7 @@ button.udpwarningdelete{
 button.udpwarningdelete:hover{
    transform: translateY(-2px);
    background-color: rgb(249, 52, 52);
-   border: none;
+   border: 1px solid black;
 }
 button.udpwarningcancel{
   width: 10vw;
@@ -56,5 +57,5 @@ button.udpwarningcancel{
 button.udpwarningcancel:hover{
    transform: translateY(-2px);
    background-color: rgb(253, 255, 121);
-   border: none;
+   border: 1px solid black;
 }

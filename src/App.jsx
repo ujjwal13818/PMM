@@ -9,6 +9,8 @@ import Profile from './Pages/Profile/Profile';
 import UpdatePassword from './Utils/UpdatePassword/UpdatePassword';
 import UpdateName from './Utils/UpdateName/UpdateName';
 import UpdateProfilePic from './Utils/UpdateProfilePic/UpdateProfilePic';
+import DeleteAccount from './Utils/DeleteAccount/DeleteAccount';
+import FinalDelete from './Utils/FinalDelete/FinalDelete';
 
 const App = () => {
 const siso = useSiso();
@@ -23,6 +25,8 @@ const siso = useSiso();
       <Route path="/updatepassword" element={<UpdatePassword />}></Route>
       <Route path="/updatename" element={<UpdateName />}></Route>
       <Route path="/updateprofilepic" element={<UpdateProfilePic />}></Route>
+      <Route path="/deleteaccount" element={<DeleteAccount />}></Route>
+      <Route path="/finaldelete" element={<FinalDelete />}></Route>
     </Routes>
   );
 }

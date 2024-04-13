@@ -180,7 +180,9 @@ const Profile = () => {
                 <div className="blocklist" onClick={() => setBlocklist(true)}>
                   Blocked users
                 </div>
-                <button className="deleteaccountbtn">Delete account</button>
+                <Link to={"http://localhost:5173/deleteaccount"}>
+                  <button className="deleteaccountbtn">Delete account</button>
+                </Link>
               </div>
             </div>
           </div>

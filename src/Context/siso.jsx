@@ -13,6 +13,7 @@ import {
   updatePassword,
   reauthenticateWithCredential,
   EmailAuthProvider,
+  deleteUser,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -173,6 +174,22 @@ export const SisoProvider = (props) => {
         });
       })
       .catch((err) => console.log(err));
+  };
+
+  //deleting account
+  const deleteAccount = async (username , password) => {
+    if (userInfo.profilePic) {
+      const imageRef = ref(storage, userInfo.profilePic);
+      await deleteObject(imageRef);
+    }
+    const credentials = EmailAuthProvider.credential(username , password);
+    reauthenticateWithCredential(appAuth.currentUser, credentials)
+      .then(async () => {
+        await deleteUser(appAuth.currentUser);
+        setUserInfo(null);
+        alert("Account deleted successfully");
+      })
+      .catch((err) => alert("Wrong credentials"));
   };
 
   //handling supportive marking
@@ -795,6 +812,7 @@ export const SisoProvider = (props) => {
         updateName,
         removeProfilePic,
         updateProfilePic,
+        deleteAccount,
       }}
     >
       {props.children}
