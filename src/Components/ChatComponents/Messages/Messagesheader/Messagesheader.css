@@ -1,0 +1,21 @@
+.Messagesheadermaincontainer{
+    height: 10vh;
+    background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 5;
+    width: 100%;
+}
+.cmmprofilepic{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-right: 1vw;
+}
+.cmmname{
+    font-size: 1.4rem;
+    color: white;
+}

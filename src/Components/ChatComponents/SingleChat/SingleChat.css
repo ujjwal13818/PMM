@@ -1,0 +1,29 @@
+.SingleChatmaincontainer{
+    width: 100%;
+    padding: 10px 5px;
+    height: 12vh;
+    background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: rgb(218, 215, 215);
+}
+.SingleChatmaincontainer:hover{
+    opacity: .9;
+    cursor: pointer;
+    transform: scale(1.01);
+}
+.cscprofilephoto{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: white;
+    margin-right: 20px;
+}
+.cscname{
+    font-size: x-large;
+    font-weight: 500;
+}
+.csclastmessage{
+    font-size: large;
+}

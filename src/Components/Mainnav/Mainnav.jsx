@@ -20,7 +20,7 @@ const Mainnav = ({ initialDestination }) => {
   const [isHome, setHome] = useState(false);
   const [isPost, setPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
-  const [isNotification, setNotification] = useState(false);
+  const [isChat, setChat] = useState(false);
   const [isProfile, setProfile] = useState(false);
   const [destination, setDestination] = useState(initialDestination);
   const navigate = useNavigate();
@@ -39,12 +39,13 @@ const Mainnav = ({ initialDestination }) => {
     if (initialDestination === "/search") setSearch(true);
     if (initialDestination === "/notification") setNotification(true);
     if (initialDestination === "/profile") setProfile(true);
-    if (initialDestination === "/home") setHome(true);
+    if (initialDestination === "/chat") setChat(true);
   }, [destination]);
 
   const handleSignOut = () => {
     siso.sign_out();
     navigate("/");
+    window.location.reload();
   };
 
   return (
@@ -77,9 +78,9 @@ const Mainnav = ({ initialDestination }) => {
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </div>
         <div
-          className={`${isNotification ? "phnvicon active" : "phnvicon"}`}
+          className={`${isChat ? "phnvicon active" : "phnvicon"}`}
           onClick={() => {
-            setDestination("/notification");
+            setDestination("/chat");
             reloadPage();
           }}
         >

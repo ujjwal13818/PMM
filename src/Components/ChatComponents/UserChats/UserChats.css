@@ -1,0 +1,6 @@
+.UserChatsmaincontent{
+    height: 100%;
+    scrollbar-width: none;
+    overflow: auto;
+    width: 100%;
+}

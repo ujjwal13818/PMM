@@ -11,6 +11,7 @@ import UpdateName from './Utils/UpdateName/UpdateName';
 import UpdateProfilePic from './Utils/UpdateProfilePic/UpdateProfilePic';
 import DeleteAccount from './Utils/DeleteAccount/DeleteAccount';
 import FinalDelete from './Utils/FinalDelete/FinalDelete';
+import Chat from './Pages/Chat/Chat';
 
 const App = () => {
 const siso = useSiso();
@@ -21,6 +22,7 @@ const siso = useSiso();
       <Route path="/home" element={<Home />}></Route>
       <Route path="/myposts" element={<MyPosts />}></Route>
       <Route path="/search" element={<Search />}></Route>
+      <Route path="/chat" element={<Chat />}></Route>
       <Route path="/profile" element={<Profile />}></Route>
       <Route path="/updatepassword" element={<UpdatePassword />}></Route>
       <Route path="/updatename" element={<UpdateName />}></Route>
