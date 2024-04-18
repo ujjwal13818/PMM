@@ -44,7 +44,7 @@ const Chat = () => {
             <div className="pcmainleftarea">
               <div className="ppnameandsearch">
                 <div className="ppname">
-                  <div className="pcpp"></div>
+                  <img src={siso.userInfo && siso.userInfo.profilePic} alt="" className="pcpp" />
                   <div className="pcname">{siso.userInfo && siso.userInfo.first_name + " " + siso.userInfo.last_name}</div>
                 </div>
                 <div className="pcsearch">

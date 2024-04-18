@@ -10,8 +10,10 @@ const Messagesheader = () => {
   return (
     <>
       <div className="Messagesheadermaincontainer">
-        <div className="cmmprofilepic"></div>
-        <div className="cmmname">{chat.currentPeer && chat.currentPeer.name}</div>
+        <img src={chat.currentPeer && chat.currentPeer.profilePic} className="cmmprofilepic" alt="" />
+        <div className="cmmname">
+          {chat.currentPeer && chat.currentPeer.name}
+        </div>
       </div>
     </>
   );

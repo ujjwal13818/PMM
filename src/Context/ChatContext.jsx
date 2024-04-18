@@ -42,7 +42,7 @@ export const ChatProvider = (props) => {
   const [allChats, setAllChats] = useState();
   const [messages, setMessages] = useState();
   const [chatId, setChatId] = useState();
-  const [currentPeer , setCurrentPeer] = useState();
+  const [currentPeer, setCurrentPeer] = useState();
 
   //getting all chats
   useEffect(() => {
@@ -60,7 +60,20 @@ export const ChatProvider = (props) => {
     siso.userInfo && getChats();
   }, [siso.userInfo]);
 
+  console.log(allChats);
+  //getting all the messages
 
+  useEffect(() => {
+    if (chatId) {
+      const unSub = onSnapshot(doc(userInfodb, "chats", chatId), (doc) => {
+        doc.exists() && setMessages(doc.data().messages);
+      });
+
+      return () => {
+        unSub();
+      };
+    }
+  }, [chatId]);
 
   //adding chat if not there
   const addandopen = async (peer) => {
@@ -68,7 +81,7 @@ export const ChatProvider = (props) => {
     const combinedUserName =
       siso.userInfo.uniqueUserName > peer.uniqueUserName
         ? siso.userInfo.uniqueUserName + peer.uniqueUserName
-        : peer.uniqueUserName + siso.userInfo.uniqueUserName; 
+        : peer.uniqueUserName + siso.userInfo.uniqueUserName;
     setChatId(combinedUserName);
     setCurrentPeer(peer);
     try {
@@ -77,57 +90,107 @@ export const ChatProvider = (props) => {
         await setDoc(doc(userInfodb, "chats", combinedUserName), {
           messages: [],
         });
-        await setDoc(doc(userInfodb, "userChats", siso.userInfo.uniqueUserName), {
-          [combinedUserName + ".userInfo"]: {
-            email: peer.email,
-            name: peer.first_name + " " + peer.last_name,
-            profilePic: peer.profilePic,
-            uniqueUserName: peer.uniqueUserName
-          },
-          [combinedUserName + ".date"]: serverTimestamp(),
-        });
-        await setDoc(doc(userInfodb, "userChats", peer.uniqueUserName), {
-          [combinedUserName + ".userInfo"]: {
-            email: siso.userInfo.email,
-            name: siso.userInfo.first_name + " " + siso.userInfo.last_name,
-            profilePic: siso.userInfo.profilePic,
-            uniqueUserName: siso.userInfo.uniqueUserName,
-          },
-          [combinedUserName + ".date"]: serverTimestamp(),
-        });
-      }
-      if (res.exists()) {
-        setMessages(res.data().messages);
+        const res1 = await getDoc(
+          doc(userInfodb, "userChats", siso.userInfo.uniqueUserName)
+        );
+        const res2 = await getDoc(
+          doc(userInfodb, "userChats", peer.uniqueUserName)
+        );
+        if (!res1.exists()) {
+          await setDoc(
+            doc(userInfodb, "userChats", siso.userInfo.uniqueUserName),
+            {
+              [combinedUserName + ".userInfo"]: {
+                email: peer.email,
+                name: peer.first_name + " " + peer.last_name,
+                profilePic: peer.profilePic,
+                uniqueUserName: peer.uniqueUserName,
+                date: "",
+                lastMessage: "",
+              },
+              [combinedUserName + ".date"]: serverTimestamp(),
+            }
+          );
+        } else {
+          await updateDoc(
+            doc(userInfodb, "userChats", siso.userInfo.uniqueUserName),
+            {
+              [combinedUserName + ".userInfo"]: {
+                email: peer.email,
+                name: peer.first_name + " " + peer.last_name,
+                profilePic: peer.profilePic,
+                uniqueUserName: peer.uniqueUserName,
+                date: "",
+                lastMessage: "",
+              },
+              [combinedUserName + ".date"]: serverTimestamp(),
+            }
+          );
+        }
+        if (!res2.exists()) {
+          await setDoc(doc(userInfodb, "userChats", peer.uniqueUserName), {
+            [combinedUserName + ".userInfo"]: {
+              email: siso.userInfo.email,
+              name: siso.userInfo.first_name + " " + siso.userInfo.last_name,
+              profilePic: siso.userInfo.profilePic,
+              uniqueUserName: siso.userInfo.uniqueUserName,
+              date: "",
+              lastMessage: "",
+            },
+            [combinedUserName + ".date"]: serverTimestamp(),
+          });
+        } else {
+          await updateDoc(doc(userInfodb, "userChats", peer.uniqueUserName), {
+            [combinedUserName + ".userInfo"]: {
+              email: siso.userInfo.email,
+              name: siso.userInfo.first_name + " " + siso.userInfo.last_name,
+              profilePic: siso.userInfo.profilePic,
+              uniqueUserName: siso.userInfo.uniqueUserName,
+              date: "",
+              lastMessage: "",
+            },
+            [combinedUserName + ".date"]: serverTimestamp(),
+          });
+        }
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-
   const updateMessages = async (message) => {
     const messagesRef = doc(userInfodb, "chats", chatId);
     const oldMessages = (await getDoc(messagesRef)).data().messages;
     await updateDoc(doc(userInfodb, "chats", chatId), {
       messages: [
-        ...oldMessages,{
+        ...oldMessages,
+        {
           text: message,
-          senderId: siso.userInfo.email,
+          senderId: siso.userInfo.uniqueUserName,
           date: Timestamp.now(),
         },
       ],
     });
+    const userDocRef = doc(
+      userInfodb,
+      "userChats",
+      siso.userInfo.uniqueUserName
+    );
+    const userDoc = await getDoc(userDocRef);
+    const userInfo = `${userDoc}.data().${chatId}.userInfo`;
 
-    await updateDoc(doc(userInfodb, "userChats", siso.userInfo.email), {
-      [chatId + ".lastmessage"]: {
-        message,
+    await updateDoc(userDocRef, {
+      [`${chatId}.userInfo`]: {
+        lastMessage: message,
       },
       [chatId + ".date"]: serverTimestamp(),
     });
-
-    await updateDoc(doc(userInfodb, "userChats", currentPeer.email), {
-      [chatId + ".lastmessage"]: {
-        message,
+    const peerDocRef = doc(userInfodb, "userChats", currentPeer.uniqueUserName);
+    const peerDoc = await getDoc(peerDocRef);
+    const peerInfo = `${peerDoc}.data().${chatId}.userInfo`;
+    await updateDoc(peerDocRef, {
+      [`${chatId}.userInfo`]: {
+        lastMessage: message,
       },
       [chatId + ".date"]: serverTimestamp(),
     });

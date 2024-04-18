@@ -14,11 +14,11 @@
     transform: scale(1.01);
 }
 .cscprofilephoto{
-    width: 55px;
-    height: 55px;
+    width: 84px;
+    height: 70px;
     border-radius: 50%;
-    background-color: white;
     margin-right: 20px;
+    object-fit: cover;
 }
 .cscname{
     font-size: x-large;

@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import './Message.css'
 
-const Message = ({flag}) => {
+const Message = ({text  , flag}) => {
     const [sent , setSent] = useState(flag);
   return (
     <>
       {sent ? (
         <div className="sentblock">
           <div className="sentmessage">
-            Lorem 
+            {text} 
           </div>
         </div>
       ) : (
         <div className="receiveblock">
           <div className="receivedmessage">
-            Lorem ipsum 
+            {text} 
           </div>
         </div>
       )}
