@@ -11,7 +11,7 @@ const Input = () => {
   const handleKey = async(e) => {
     if(e.code === "Enter"){
       if(newMessage.length === 0)return;
-      await chat.updateMessages(newMessage);
+       chat.updateMessages(newMessage);
       setNewMessage("");
     }
   }

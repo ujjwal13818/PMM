@@ -6,8 +6,10 @@ const SingleChat = ({ peer }) => {
   const chat = useChat();
 
   const openChat = async (peer) => {
+    if(chat.currentPeer === peer)return;
     await chat.addandopen(peer);
   };
+
 
   return (
     <>

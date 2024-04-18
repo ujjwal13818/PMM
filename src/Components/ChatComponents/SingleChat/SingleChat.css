@@ -25,5 +25,6 @@
     font-weight: 500;
 }
 .csclastmessage{
-    font-size: large;
+    font-size: normal;
+    color: rgba(231, 234, 76, 0.902);
 }

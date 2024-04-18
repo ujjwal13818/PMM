@@ -15,7 +15,7 @@ const Chat = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [searchedUser, setSearchedUser] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
-  const [list , setList] = useState([]);
+
 
 
   useEffect(() => {
@@ -68,13 +68,7 @@ const Chat = () => {
                     )}
                   </div>
                 )}
-                {chat.allChats && Object.entries(chat.allChats)
-                  ?.sort((a, b) => {b[1].date && a[1].date && b[1].date - a[1].date})
-                  .map((chat) => (
-                    <div className="pcalluserchats">
-                      <UserChats list={chat} />
-                    </div>
-                  ))}
+                {chat.chatsDetails && <UserChats list={chat.chatsDetails} />}
               </div>
             </div>
           )}
