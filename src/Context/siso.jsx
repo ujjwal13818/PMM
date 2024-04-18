@@ -376,6 +376,7 @@ export const SisoProvider = (props) => {
           supportiveMarkedBy: doc.data().supportiveMarkedBy,
           supportiveMarkedTo: doc.data().supportiveMarkedTo,
           BlockedUsers: doc.data().BlockedUsers,
+          uniqueUserName: doc.data().uniqueUserName,
         }));
       });
     } else {

@@ -16,7 +16,6 @@
 }
 .pcmainleftarea{
     height: 100%;
-    /* z-index: 5; */
     overflow: auto;
     scrollbar-width: none;
     width: 30vw;
@@ -37,10 +36,7 @@
     position: fixed;
     z-index: 5;
 }
-.pcleftcontent{
-    width: 31vw;
-    margin-top: 18vh;
-}
+
 
 .ppname{
     display: flex;
@@ -102,7 +98,19 @@ input.pcsearchin:focus{
     font-size: 10rem;
     color: white;
 }
-.searchresults{
+.pcleftcontent{
     width: 31vw;
-    display: none;
+    margin-top: 18vh;
+    background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+    height: 82vh;
+    color: while;
+    margin-top: 18vh;
+    display: flex;
+    flex-direction: column;
+}
+.pcsearchedresults{
+    border-bottom: 2px solid rgb(181, 162, 162);
+}
+.pcalluserchats{
+
 }

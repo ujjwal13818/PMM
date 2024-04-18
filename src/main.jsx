@@ -4,12 +4,15 @@ import App from './App.jsx'
 import './index.css'
 import { SisoProvider } from "./Context/siso.jsx";
 import { BrowserRouter } from 'react-router-dom';
+import { ChatProvider } from './Context/ChatContext.jsx';
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <SisoProvider>
-      <App />
+      <ChatProvider>
+        <App />
+      </ChatProvider>
     </SisoProvider>
   </BrowserRouter>
 );
