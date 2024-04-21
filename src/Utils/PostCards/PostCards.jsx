@@ -20,6 +20,7 @@ const PostCards = ({ bgcs, bgheader, post }) => {
   const [posts, setPosts] = useState();
   const [accomplishments, setAccomplishments] = useState();
   const [supportive , setSupportive] = useState();
+  var rounded_supportive= Math.round(supportive * 100) / 100
 
   const handleLikes = () => {
     if (!isLiked) {
@@ -75,7 +76,7 @@ siso
                   <div className="upctopnameandsubtitle">
                     <div className="upctopname">{post.fullName}</div>
                     <div className="upctopsubtitle">
-                      {posts} posts, {accomplishments} accomplishments, supportive: {supportive}%
+                      {posts} posts, {accomplishments} accomplishments, supportive: {rounded_supportive}%
                     </div>
                   </div>
                 </div>
